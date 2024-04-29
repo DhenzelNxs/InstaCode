@@ -4,17 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Feed from './screens/Feed';
-import {Text, View} from 'react-native';
-
-function IconFeed() {
-  return <Icon name="home" size={30} color="#000" />;
-}
-function IconAdd() {
-  return <Icon name="camera" size={25} color="#000" />;
-}
-function IconProfile() {
-  return <Icon name="user" size={25} color="#000" />;
-}
+import AddPhoto from './screens/AddPhoto';
 
 const MenuRoutes = {
   Feed: {
@@ -22,15 +12,15 @@ const MenuRoutes = {
     component: Feed,
     options: {
       title: 'Feed',
-      tabBarIcon: IconFeed,
+      tabBarIcon: ({color}) => <Icon name="home" size={30} color={color} />,
     },
   },
   Add: {
     name: 'AddPhoto',
-    component: Feed,
+    component: AddPhoto,
     options: {
       title: 'Add Picture',
-      tabBarIcon: IconAdd,
+      tabBarIcon: ({color}) => <Icon name="camera" size={25} color={color} />,
     },
   },
   Profile: {
@@ -38,7 +28,7 @@ const MenuRoutes = {
     component: Feed,
     options: {
       title: 'Profile',
-      tabBarIcon: IconProfile,
+      tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
     },
   },
 };
