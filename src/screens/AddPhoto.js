@@ -20,31 +20,35 @@ class AddPhoto extends Component {
     base64: '',
   };
 
-  turnOnCamera = () => {
-    launchCamera({maxWidth: 800, maxHeight: 600}, res => {
-      if (!res.didCancel) {
-        this.setState({image: res.assets[0].uri, base64: res.assets[0].base64});
-      }
-    });
-  };
+  /**
+    @param {Object} options - As opções para selecionar a imagem.
+    @param {'camera' | 'galery'} options.mode - O modo de seleção da imagem ( 'camera' ou 'galery' ).
+   */
 
-  openGalery = () => {
-    launchImageLibrary({maxWidth: 800, maxHeight: 600}, res => {
+  imagePickMode = mode => {
+    const configCam = {maxWidth: 800, maxHeight: 600};
+    const callback = res => {
       if (!res.didCancel) {
         this.setState({image: res.assets[0].uri, base64: res.assets[0].base64});
       }
-    });
+    };
+
+    if (mode === 'camera') {
+      launchCamera({...configCam}, callback);
+    } else if (mode === 'galery') {
+      launchImageLibrary({...configCam}, callback);
+    }
   };
 
   pickImage = () => {
     Alert.alert('Adicionar Imagem', 'Como quer anexar a imagem ?', [
       {
         text: 'Tirar Foto',
-        onPress: this.turnOnCamera,
+        onPress: () => this.imagePickMode('camera'),
       },
       {
         text: 'Galeria',
-        onPress: this.openGalery,
+        onPress: () => this.imagePickMode('galery'),
       },
       {
         text: 'Cancelar',
