@@ -37,13 +37,17 @@ class Header extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === 'ios' ? 20 : 0,
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 20 : 0,
+    left: 0,
+    right: 0,
     padding: 10,
     borderBottomWidth: 1,
     borderColor: '#BBB',
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: '#FFF',
+    zIndex: 1000,
   },
   rowCotainer: {
     flexDirection: 'row',

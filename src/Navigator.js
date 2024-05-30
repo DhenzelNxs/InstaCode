@@ -9,6 +9,7 @@ import AddPhoto from './screens/AddPhoto';
 import Profile from './screens/Profile';
 import Login from './screens/Login';
 import Register from './screens/Register';
+import Splash from './screens/Splash';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,23 @@ function LoginOrProfileRoute() {
       <Stack.Screen {...MenuRoutes.Login} />
       <Stack.Screen {...MenuRoutes.Register} />
     </Stack.Navigator>
+  );
+}
+
+function SplashToRoutes() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        detachInactiveScreens={false}
+        initialRouteName="Splash"
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+        }}>
+        <Stack.Screen {...MenuRoutes.Splash} />
+        <Stack.Screen name="Routes" component={Routes} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -70,6 +88,11 @@ const MenuRoutes = {
       tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
     },
   },
+  Splash: {
+    id: Math.random(),
+    name: 'Splash',
+    component: Splash,
+  },
 };
 
 const MenuConfig = {
@@ -84,23 +107,19 @@ const Tab = createBottomTabNavigator();
 
 function Routes() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator {...MenuConfig} detachInactiveScreens={false}>
-        <Tab.Screen {...MenuRoutes.Feed} />
-        <Tab.Screen {...MenuRoutes.Add} />
-        <Tab.Screen
-          name="loginorprofile"
-          component={LoginOrProfileRoute}
-          options={{
-            title: 'Profile',
-            tabBarIcon: ({color}) => (
-              <Icon name="user" size={25} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator {...MenuConfig} detachInactiveScreens={false}>
+      <Tab.Screen {...MenuRoutes.Feed} />
+      <Tab.Screen {...MenuRoutes.Add} />
+      <Tab.Screen
+        name="loginorprofile"
+        component={LoginOrProfileRoute}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
-export default Routes;
+export default SplashToRoutes;

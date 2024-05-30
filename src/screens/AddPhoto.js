@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {AddPost} from '../store/actions/post';
 import {
   View,
   Text,
@@ -10,14 +12,20 @@ import {
   Platform,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {storage} from '../../firebaseConfig';
+import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
+
+const noUser = 'Você precisa estar logado para adicionar imagens';
 
 class AddPhoto extends Component {
   state = {
     image: '',
+    base64: null,
     comment: '',
-    base64: '',
+    loading: false,
   };
 
   /**
@@ -26,7 +34,8 @@ class AddPhoto extends Component {
    */
 
   imagePickMode = mode => {
-    const configCam = {maxWidth: 800, maxHeight: 600};
+    this.setState({loading: true});
+    const configCam = {maxWidth: 800, maxHeight: 600, includeBase64: true};
     const callback = res => {
       if (!res.didCancel) {
         this.setState({image: res.assets[0].uri, base64: res.assets[0].base64});
@@ -38,9 +47,15 @@ class AddPhoto extends Component {
     } else if (mode === 'galery') {
       launchImageLibrary({...configCam}, callback);
     }
+
+    this.setState({loading: false});
   };
 
   pickImage = () => {
+    if (!this.props.name) {
+      Alert.alert('Falha!', noUser);
+      return;
+    }
     Alert.alert('Adicionar Imagem', 'Como quer anexar a imagem ?', [
       {
         text: 'Tirar Foto',
@@ -58,16 +73,37 @@ class AddPhoto extends Component {
   };
 
   save = async () => {
-    Alert.alert('Imagem Adicionada!', this.state.comment);
+    if (!this.props.name) {
+      Alert.alert('Falha!', noUser);
+      return;
+    }
+    this.props.onAddPost({
+      nickname: this.props.name,
+      email: this.props.email,
+      image: this.state.image,
+      comments: [
+        {
+          nickname: this.props.name,
+          comment: this.state.comment,
+        },
+      ],
+    });
+    this.setState({image: null, comment: '', base64: null});
+    this.props.navigation.navigate('Feed');
   };
 
   render() {
+    const {loading} = this.state;
     return (
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.title}>Compartilhe uma imagem</Text>
           <View style={styles.imageContainer}>
-            <Image source={{uri: this.state.image}} style={styles.image} />
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Image source={{uri: this.state.image}} style={styles.image} />
+            )}
           </View>
           <TouchableOpacity onPress={this.pickImage} style={styles.buttom}>
             <Text style={styles.buttomText}>Escolha a foto</Text>
@@ -78,6 +114,7 @@ class AddPhoto extends Component {
             value={this.state.comment}
             onChangeText={comment => this.setState({comment})}
             placeholderTextColor="#000"
+            editable={!!this.props.name}
           />
           <TouchableOpacity onPress={this.save} style={styles.buttom}>
             <Text style={styles.buttomText}>Salvar</Text>
@@ -126,4 +163,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddPhoto;
+const mapStateToProps = ({user}) => {
+  return {
+    email: user.email,
+    name: user.name,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPost: post => dispatch(AddPost(post)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto);

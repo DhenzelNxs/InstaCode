@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 
 class Login extends Component {
@@ -16,14 +17,20 @@ class Login extends Component {
     password: '',
   };
 
+  componentDidUpdate = prevProps => {
+    if (prevProps.isLoading && !this.props.isLoading) {
+      this.props.navigation.navigate('Profile');
+    }
+  };
+
   login = () => {
     this.props.onLogin({...this.state});
-    this.props.navigation.navigate('Profile');
   };
 
   render() {
     return (
       <View style={styles.container}>
+        {this.props.isLoading ? <ActivityIndicator size={45} /> : null}
         <TextInput
           placeholder="Email"
           placeholderTextColor="#000"
@@ -85,10 +92,16 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProp = ({user}) => {
+  return {
+    isLoading: user.isLoading,
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: user => dispatch(login(user)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProp, mapDispatchToProps)(Login);
