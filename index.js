@@ -11,7 +11,7 @@ import {name as appName} from './app.json';
 import storeConfig from './src/store/storeConfig';
 
 import axios from 'axios';
-axios.defaults.baseURL = 'http://192.168.18.188:5000/api';
+axios.defaults.baseURL = 'https://instacode-api.onrender.com/api';
 
 const store = storeConfig();
 function Redux() {

@@ -78,10 +78,21 @@ export const login = user => {
           const data = res.data.users;
           data.map(response => {
             if (response.email === user.email) {
-              user.password = null;
-              user.name = response.name;
-              dispatch(userLogged(user));
-              dispatch(userLoaded());
+              if (response.password === user.password) {
+                user.password = null;
+                user.name = response.name;
+                dispatch(userLogged(user));
+                dispatch(userLoaded());
+              } else {
+                dispatch(
+                  setMessage({
+                    title: 'Error',
+                    text: 'Senha incorreta!',
+                  })
+                )
+                user.password = null;
+              }
+              
             }
           });
         } else {

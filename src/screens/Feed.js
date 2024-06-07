@@ -11,6 +11,8 @@ import {
 import Header from '../components/Header';
 import Post from '../components/Post';
 import axios from 'axios';
+import { colors } from '../GlobalStyle/Style';
+import mock from '../../mock.json'
 
 class Feed extends Component {
   constructor(props) {
@@ -34,30 +36,25 @@ class Feed extends Component {
   };
 
   requestPosts = async (updateControl = false) => {
-    try {
-      !updateControl ? this.setState({loading: true}) : null;
-      await axios
-        .get('/posts')
-        .then(response => {
-          this.setState({data: response.data.posts.reverse()});
-        })
-        .catch(error => {
-          Alert.alert('Error', error);
-        });
-    } catch (err) {
-      Alert.alert('Error', err);
-    } finally {
-      this.setState({loading: false});
-    }
+    !updateControl ? this.setState({loading: true}) : null;
+    await axios
+      .get('/posts')
+      .then(response => {
+        this.setState({data: response.data.posts.reverse()});
+      })
+      .catch(error => {
+        Alert.alert('Error', `${error}`);
+      });
+    this.setState({loading: false});
   };
   render() {
     const {data, refreshing, loading, keys} = this.state;
-    console.log('data: ', data);
+    //console.log('data: ', data);
     return (
       <View style={styles.container}>
-        <Header />
+        <Header navigate={this.props.navigation.navigate}/>
         {loading ? (
-          <ActivityIndicator color="fff" size={45} />
+          <ActivityIndicator color={colors.loadingColor} size={45} />
         ) : (
           <FlatList
             data={data}
@@ -92,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: colors.backgroundFeedColor,
   },
   emptyText: {
     textAlign: 'center',
@@ -100,9 +97,10 @@ const styles = StyleSheet.create({
     marginTop: '50%',
     fontSize: 20,
     opacity: 0.3,
-    color: '#000',
+    color: '#888',
   },
-  flatList: {},
+  flatList: {
+  }
 });
 
 const mapStateToProps = ({posts}) => {

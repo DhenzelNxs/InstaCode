@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert} from 'react-native';
+import {Alert, StatusBar, View} from 'react-native';
 import {connect} from 'react-redux';
 import Routes from './Navigator';
 import {setMessage} from './store/actions/message';
@@ -13,7 +13,10 @@ class App extends Component {
   };
 
   render() {
-    return <Routes />;
+    return (<>
+    <StatusBar translucent backgroundColor="transparent" />
+    <Routes user={this.props.name} />
+    </>);
   }
 }
 

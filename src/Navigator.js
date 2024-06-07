@@ -10,14 +10,23 @@ import Profile from './screens/Profile';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import Splash from './screens/Splash';
+import { colors } from './GlobalStyle/Style';
 
 const Stack = createStackNavigator();
 
 function LoginOrProfileRoute() {
   return (
-    <Stack.Navigator detachInactiveScreens={false} initialRouteName="Auth">
-      <Stack.Screen {...MenuRoutes.Profile} />
+    <Stack.Navigator 
+    detachInactiveScreens={false}
+    initialRouteName='Login' 
+    screenOptions={{
+      headerStyle:{
+        backgroundColor: colors.backgroundHeaderColor
+        },
+        headerTintColor: colors.loadingColor
+        }}>
       <Stack.Screen {...MenuRoutes.Login} />
+      <Stack.Screen {...MenuRoutes.Profile}/>
       <Stack.Screen {...MenuRoutes.Register} />
     </Stack.Navigator>
   );
@@ -48,6 +57,7 @@ const MenuRoutes = {
     options: {
       title: 'Feed',
       tabBarIcon: ({color}) => <Icon name="home" size={30} color={color} />,
+      tabBarActiveTintColor: '#19F28B'
     },
   },
   Add: {
@@ -56,7 +66,8 @@ const MenuRoutes = {
     component: AddPhoto,
     options: {
       title: 'Add Picture',
-      tabBarIcon: ({color}) => <Icon name="camera" size={25} color={color} />,
+      tabBarIcon: ({color}) => <Icon name="plus-square" size={25} color={color} />,
+      tabBarActiveTintColor: '#19F28B'
     },
   },
   Profile: {
@@ -67,6 +78,7 @@ const MenuRoutes = {
       title: 'Profile',
       tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
       headerShown: false,
+      tabBarActiveTintColor: '#19F28B',
     },
   },
   Login: {
@@ -77,6 +89,7 @@ const MenuRoutes = {
       title: 'Login',
       tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
       headerShown: false,
+      tabBarActiveTintColor: '#19F28B'
     },
   },
   Register: {
@@ -84,8 +97,9 @@ const MenuRoutes = {
     name: 'Register',
     component: Register,
     options: {
-      title: 'Register',
+      title: 'Registrar',
       tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
+      tabBarActiveTintColor: '#19F28B'
     },
   },
   Splash: {
@@ -100,6 +114,9 @@ const MenuConfig = {
   screenOptions: {
     headerShown: false,
     tabBarShowLabel: false,
+    tabBarStyle:{
+      backgroundColor: colors.backgroundHeaderColor
+    }
   },
 };
 
@@ -116,6 +133,7 @@ function Routes() {
         options={{
           title: 'Profile',
           tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
+          tabBarActiveTintColor: '#19F28B'
         }}
       />
     </Tab.Navigator>

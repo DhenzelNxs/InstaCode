@@ -8,7 +8,7 @@ class Comments extends Component {
       view = this.props.comments.map((item, index) => {
         return item.comment ? (
           <View style={styles.commentContainer} key={index}>
-            <Text style={styles.nickname}>{item.nickname} </Text>
+            <Text style={styles.nickname}>{item.nickname}: </Text>
             <Text style={styles.comment}>{item.comment}</Text>
           </View>
         ) : (
@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
   nickname: {
     marginLeft: 5,
     fontWeight: 'bold',
-    color: '#444',
+    color: '#FFF',
   },
   comment: {
-    color: '#555',
+    color: '#FFF',
   },
 });
 

@@ -23,13 +23,16 @@ const styles = StyleSheet.create({
   avatar: {
     width: 30,
     height: 30,
-    borderRadius: 15,
+    borderRadius: 30,
     marginHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#FFF',
   },
   nickname: {
-    color: '#444',
+    color: '#FFF',
     marginVertical: 10,
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: '400',
+    fontStyle: 'italic'
   },
 });

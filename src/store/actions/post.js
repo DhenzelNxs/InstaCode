@@ -1,3 +1,4 @@
+import {Alert} from 'react-native';
 import {ADD_POST, ADD_COMMENT} from './actionTypes';
 import {setMessage} from './message';
 import axios from 'axios';
@@ -7,12 +8,7 @@ export const AddPost = post => {
     axios
       .post('/posts', {...post})
       .catch(err => {
-        dispatch(
-          setMessage({
-            title: 'Erro',
-            text: `Ocorreu um erro inesperado!! (${err})`,
-          }),
-        );
+        dispatch(Alert.alert('Erro!', `${err}`));
       })
       .then(res => console.log(res.data));
   };
@@ -28,12 +24,7 @@ export const addComment = payload => {
     axios
       .get(`/posts/getpost/${payload.postId}`)
       .catch(err => {
-        dispatch(
-          setMessage({
-            title: 'Erro',
-            text: `Ocorreu um erro inesperado!! (${err})`,
-          }),
-        );
+        dispatch(Alert.alert('Erro', `${err}`));
       })
       .then(res => {
         const comments = res.data.posts.comments || [];

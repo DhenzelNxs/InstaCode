@@ -53,14 +53,14 @@ class AddComment extends Component {
       commentArea = (
         <TWF onPress={() => this.setState({editMode: true})}>
           <View style={styles.container}>
-            <Icon name="comment-o" size={25} color="#555" />
+            <Icon name="comment-o" size={25} color="#19F28B" />
             <Text style={styles.caption}>Adicione um comentario...</Text>
           </View>
         </TWF>
       );
     }
 
-    return <View style={{flex: 1}}>{commentArea}</View>;
+    return <View style={{flex: 1, marginLeft: 10}}>{commentArea}</View>;
   }
 }
 
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '90%',
-    color: '#000',
+    color: '#FFF',
   },
   caption: {
     marginLeft: 10,
     fontSize: 12,
-    color: '#000',
+    color: '#FFF',
   },
 });
 

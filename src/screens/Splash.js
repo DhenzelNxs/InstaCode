@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, ActivityIndicator} from 'react-native';
+import {View, Text, Image, ActivityIndicator, StatusBar} from 'react-native';
+import {styles} from './styles/splash';
+import {colors} from '../GlobalStyle/Style';
+import configs from '../../app.json';
 
 export default class Splash extends Component {
   componentDidMount = () => {
@@ -7,35 +10,19 @@ export default class Splash extends Component {
       this.props.navigation.navigate('Routes');
     }, 3000);
   };
-
   render() {
     return (
-      <View style={styles.container}>
-        <Image
-          source={require('../../assets/imgs/icon.png')}
-          style={styles.image}
-        />
-        <Text style={styles.header}>InstaCode</Text>
-        <ActivityIndicator color="#000" size={45} />
-      </View>
+      <>
+        <StatusBar translucent backgroundColor="transparent" />
+        <View style={styles.container}>
+          <Image
+            source={require('../../assets/imgs/instacode-logo.png')}
+            style={styles.image}
+          />
+          <ActivityIndicator color={colors.loadingColor} size={45} />
+          <Text style={styles.version}>Version: {configs.version}</Text>
+        </View>
+      </>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    height: 200,
-    width: 200,
-    resizeMode: 'contain',
-  },
-  header: {
-    fontSize: 50,
-    fontWeight: 'bold',
-    fontFamily: 'monospace',
-  },
-});

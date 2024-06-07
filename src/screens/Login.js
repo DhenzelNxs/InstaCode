@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  Image
 } from 'react-native';
+import { colors } from '../GlobalStyle/Style';
 
 class Login extends Component {
   state = {
@@ -31,36 +33,46 @@ class Login extends Component {
     return (
       <View style={styles.container}>
         {this.props.isLoading ? <ActivityIndicator size={45} /> : null}
-        <TextInput
+        <Image
+            source={require('../../assets/imgs/instacode-logo.png')}
+            style={styles.image}
+          />
+        <View style={styles.inputContainer}>
+          <TextInput
           placeholder="Email"
-          placeholderTextColor="#000"
+          placeholderTextColor="#FFF"
           style={styles.input}
-          autoFocus={true}
+          autoFocus={false}
           keyboardType="email-address"
           value={this.state.email}
           onChangeText={email => this.setState({email})}
         />
         <TextInput
           placeholder="Senha"
-          placeholderTextColor="#000"
+          placeholderTextColor="#FFF"
           style={styles.input}
           autoFocus={false}
           keyboardType="visible-password"
           value={this.state.password}
           onChangeText={password => this.setState({password})}
         />
+        </View>
 
-        <TouchableOpacity onPress={this.login} style={styles.buttom}>
+          <TouchableOpacity onPress={this.login} style={styles.Loginbuttom}>
           <Text style={styles.buttomText}>Login</Text>
         </TouchableOpacity>
 
+        <View style={styles.registerContainer}>
+          <Text style={{color: '#FFF', fontWeight: "300"}}>Ainda não possui uma conta ?</Text>
         <TouchableOpacity
           onPress={() => {
             this.props.navigation.navigate('Register');
           }}
-          style={styles.buttom}>
-          <Text style={styles.buttomText}>Criar nova conta.</Text>
+          style={styles.Registerbuttom}>
+          <Text style={[styles.buttomText, {color: colors.loadingColor}]}>Registrar-se</Text>
         </TouchableOpacity>
+        </View>
+        
       </View>
     );
   }
@@ -71,25 +83,53 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: colors.backgroundFeedColor
   },
-  buttom: {
-    marginTop: 30,
+  Loginbuttom: {
     padding: 10,
-    backgroundColor: '#4286F4',
+    paddingRight: 30,
+    paddingLeft: 30,
+    backgroundColor: colors.loadingColor,
+    marginTop: 50,
+    borderRadius: 10
+  },
+  Registerbuttom: {
+    padding: 10,
   },
   buttomText: {
     fontSize: 20,
-    color: '#FFF',
+    color: '#000',
+    fontStyle: "italic",
+    fontWeight: "500",
+    textAlign: "center"
   },
   input: {
     marginTop: 20,
     width: '90%',
-    backgroundColor: '#EEE',
+    backgroundColor: colors.backgroundFeedColor,
     height: 40,
     borderWidth: 1,
-    borderColor: '#333',
-    color: '#000',
+    borderColor: '#FFF',
+    color: '#FFF',
+    borderRadius: 10,
   },
+  image: {
+    height: 350,
+    width: 350,
+    resizeMode: 'contain',
+    position: 'absolute',
+    bottom: "50%",
+  },
+  inputContainer: {
+    width: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  registerContainer: {
+    position: "absolute",
+    bottom: 30
+  }
 });
 
 const mapStateToProp = ({user}) => {

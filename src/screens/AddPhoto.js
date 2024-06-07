@@ -10,13 +10,12 @@ import {
   Image,
   Dimensions,
   Platform,
-  ScrollView,
   Alert,
-  ActivityIndicator,
+  KeyboardAvoidingView
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {storage} from '../../firebaseConfig';
-import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
+import { colors } from '../GlobalStyle/Style';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const noUser = 'Você precisa estar logado para adicionar imagens';
 
@@ -24,7 +23,7 @@ class AddPhoto extends Component {
   state = {
     image: '',
     base64: null,
-    comment: '',
+    description: '',
     loading: false,
   };
 
@@ -38,7 +37,10 @@ class AddPhoto extends Component {
     const configCam = {maxWidth: 800, maxHeight: 600, includeBase64: true};
     const callback = res => {
       if (!res.didCancel) {
-        this.setState({image: res.assets[0].uri, base64: res.assets[0].base64});
+        this.setState({
+          image: res.assets[0].uri,
+          base64: 'data:image/jpeg;base64,' + res.assets[0].base64,
+        });
       }
     };
 
@@ -53,7 +55,16 @@ class AddPhoto extends Component {
 
   pickImage = () => {
     if (!this.props.name) {
-      Alert.alert('Falha!', noUser);
+      Alert.alert('Falha!', noUser, [
+        {
+          text: 'Fazer Login',
+          onPress: () => this.props.navigation.navigate('loginorprofile')
+        },
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+        }
+      ]);
       return;
     }
     Alert.alert('Adicionar Imagem', 'Como quer anexar a imagem ?', [
@@ -73,54 +84,59 @@ class AddPhoto extends Component {
   };
 
   save = async () => {
-    if (!this.props.name) {
-      Alert.alert('Falha!', noUser);
-      return;
-    }
     this.props.onAddPost({
       nickname: this.props.name,
       email: this.props.email,
-      image: this.state.image,
-      comments: [
-        {
-          nickname: this.props.name,
-          comment: this.state.comment,
-        },
-      ],
+      image: this.state.base64,
+      description: this.state.description,
+      comments: [],
     });
-    this.setState({image: null, comment: '', base64: null});
+    setTimeout(() => {
+      this.setState({image: null, description: '', base64: null});
+    }, 2000)
     this.props.navigation.navigate('Feed');
   };
 
   render() {
     const {loading} = this.state;
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      <View style={styles.container}>
           <Text style={styles.title}>Compartilhe uma imagem</Text>
           <View style={styles.imageContainer}>
-            {loading ? (
-              <ActivityIndicator color="#fff" />
+            {this.state.image == '' ? (
+              <Text style={{color: '#FFF'}}>Escolha uma imagem para postar</Text>
             ) : (
               <Image source={{uri: this.state.image}} style={styles.image} />
             )}
           </View>
           <TouchableOpacity onPress={this.pickImage} style={styles.buttom}>
-            <Text style={styles.buttomText}>Escolha a foto</Text>
+            <Icon name='camera' size={30} color={colors.loadingColor}/>
           </TouchableOpacity>
-          <TextInput
-            placeholder="Algum comentário para a foto?"
+          {this.state.image == '' ? null : 
+          <View style={{
+            flex: 1,
+            backgroundColor: colors.backgroundFeedColor,
+            alignItems: 'center',
+            }}>
+            <TextInput
+            placeholder="Alguma descrição para a foto?"
             style={styles.input}
-            value={this.state.comment}
-            onChangeText={comment => this.setState({comment})}
-            placeholderTextColor="#000"
+            value={this.state.description}
+            onChangeText={desc => this.setState({description: desc})}
+            placeholderTextColor="#FFF"
             editable={!!this.props.name}
-          />
-          <TouchableOpacity onPress={this.save} style={styles.buttom}>
-            <Text style={styles.buttomText}>Salvar</Text>
-          </TouchableOpacity>
+            multiline={true}
+            />
+            <TouchableOpacity 
+            onPress={this.save} 
+            style={
+              [styles.buttom, {backgroundColor: colors.loadingColor, borderRadius: 20}]
+              }>
+              <Text style={styles.buttomText}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
+          }
         </View>
-      </ScrollView>
     );
   }
 }
@@ -128,38 +144,44 @@ class AddPhoto extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.backgroundFeedColor,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontSize: 20,
     marginTop: Platform.OS === 'ios' ? 30 : 10,
     fontWeight: 'bold',
+    color: '#FFF',
   },
   imageContainer: {
     width: '90%',
-    height: Dimensions.get('window').width * (3 / 4),
-    backgroundColor: '#DCDCDC',
+    height: '50%',
+    backgroundColor: '#1E1C1C',
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * (3 / 4),
+    width: '80%',
+    height: '85%',
     resizeMode: 'contain',
   },
   buttom: {
     marginTop: 30,
     padding: 10,
-    backgroundColor: '#4286f4',
   },
   buttomText: {
     fontSize: 20,
-    color: '#FFF',
+    color: '#000',
   },
   input: {
     marginTop: 20,
     width: '90%',
+    color: '#FFF',
+    backgroundColor:'#1E1C1C',
+    padding: 20,
+    maxWidth: '80%'
   },
 });
 
