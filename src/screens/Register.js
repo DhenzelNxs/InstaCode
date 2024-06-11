@@ -10,6 +10,7 @@ import {
 import {connect} from 'react-redux';
 import {createUser} from '../store/actions/user';
 import { colors } from '../GlobalStyle/Style';
+import { styles } from './styles/register';
 
 class Register extends Component {
   state = {
@@ -17,6 +18,9 @@ class Register extends Component {
     email: '',
     password: '',
     toLogin: this.props.navigation.navigate,
+    focusName: false,
+    focusEmail: false,
+    focusPassword: false,
   };
 
   render() {
@@ -30,26 +34,32 @@ class Register extends Component {
           <TextInput
           placeholder="Nome"
           placeholderTextColor="#FFF"
-          style={styles.input}
+          style={[styles.input, {borderColor: this.state.focusName ? colors.loadingColor : '#FFF'}]}
           autoFocus={true}
           value={this.state.name}
           onChangeText={name => this.setState({name})}
+          onFocus={() => this.setState({focusName: true})}
+          onBlur={() => this.setState({focusName: false})}
         />
         <TextInput
           placeholder="Email"
           placeholderTextColor="#FFF"
-          style={styles.input}
+          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : '#FFF'}]}
           keyboardType="email-address"
           value={this.state.email}
           onChangeText={email => this.setState({email})}
+          onFocus={() => this.setState({focusEmail: true})}
+          onBlur={() => this.setState({focusEmail: false})}
         />
         <TextInput
           placeholder="Senha"
           placeholderTextColor="#FFF"
-          style={styles.input}
+          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : '#FFF'}]}
           secureTextEntry={true}
           value={this.state.password}
           onChangeText={password => this.setState({password})}
+          onFocus={() => this.setState({focusPassword: true})}
+          onBlur={() => this.setState({focusPassword: false})}
         />
         </View>
         <TouchableOpacity
@@ -64,49 +74,7 @@ class Register extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.backgroundFeedColor
-  },
-  buttom: {
-    marginTop: 50,
-    padding: 10,
-    backgroundColor: colors.loadingColor,
-    paddingLeft: 25,
-    paddingRight: 25,
-    borderRadius: 10,
-  },
-  buttomText: {
-    fontSize: 20,
-    color: '#000',
-  },
-  input: {
-    marginTop: 20,
-    width: '90%',
-    backgroundColor: colors.backgroundFeedColor,
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#FFF',
-    paddingLeft: 15,
-    borderRadius: 10,
-  },
-  inputContainer: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 60,
-  },
-  image: {
-    height: 350,
-    width: 350,
-    resizeMode: 'contain',
-    position: 'absolute',
-    bottom: "50%",
-  },
-});
+
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {StyleSheet} from 'react-native';
 import {colors} from '../../GlobalStyle/Style';
 
@@ -20,7 +19,7 @@ export const styles = StyleSheet.create({
   version: {
     fontSize: 16,
     position: 'absolute',
-    bottom: 20, // Altera esta margem inferior conforme necessário
+    bottom: 20, 
     textAlign: 'center',
     width: '100%',
     color: '#FFF',

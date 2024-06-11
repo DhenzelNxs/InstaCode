@@ -7,7 +7,7 @@ import configs from '../../app.json';
 export default class Splash extends Component {
   componentDidMount = () => {
     setTimeout(() => {
-      this.props.navigation.navigate('Routes');
+      this.props.navigation.navigate('loginorprofile');
     }, 3000);
   };
   render() {

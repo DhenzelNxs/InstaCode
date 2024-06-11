@@ -7,12 +7,14 @@ import {
   Text,
   Alert,
   ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
 import Header from '../components/Header';
 import Post from '../components/Post';
 import axios from 'axios';
 import { colors } from '../GlobalStyle/Style';
 import mock from '../../mock.json'
+import { styles } from './styles/feed';
 
 class Feed extends Component {
   constructor(props) {
@@ -27,6 +29,7 @@ class Feed extends Component {
 
   async componentDidMount() {
     this.requestPosts();
+    console.log("Props name: ", this.props.name)
   }
 
   onRefresh = () => {
@@ -53,59 +56,62 @@ class Feed extends Component {
     return (
       <View style={styles.container}>
         <Header navigate={this.props.navigation.navigate}/>
-        {loading ? (
-          <ActivityIndicator color={colors.loadingColor} size={45} />
-        ) : (
-          <FlatList
-            data={data}
-            contentContainerStyle={styles.flatList}
-            ListEmptyComponent={
-              <View>
-                <Text style={styles.emptyText}>
-                  Não há postagens no momento
-                </Text>
-              </View>
-            }
-            keyExtractor={item => `${item.id}`}
-            renderItem={({item}) => (
-              <Post
-                key={item.id}
-                {...item}
-                keys={keys[data.indexOf(item)]}
-                requestFunc={this.requestPosts}
-              />
+        {this.props.name === null ? 
+        (
+          <>
+          <Text style={{fontSize: 15, color:"#FFF"}}>Faça login para começar a ver os posts</Text> 
+
+          <TouchableOpacity 
+          onPress={() => this.props.navigation.navigate('loginorprofile')} 
+          style={styles.Loginbuttom}>
+
+            <Text style={styles.buttomText}>Fazer Login</Text>
+
+          </TouchableOpacity>
+          </>
+        )
+        : 
+        (
+          <>
+            {loading ? (
+            <ActivityIndicator color={colors.loadingColor} size={45} />
+            ) : (
+            <FlatList
+              data={data}
+              contentContainerStyle={styles.flatList}
+              ListEmptyComponent={
+                <View>
+                  <Text style={styles.emptyText}>
+                    Não há postagens no momento
+                  </Text>
+                </View>
+              }
+              keyExtractor={item => `${item.id}`}
+              renderItem={({item}) => (
+                <Post
+                  key={item.id}
+                  {...item}
+                  keys={keys[data.indexOf(item)]}
+                  requestFunc={this.requestPosts}
+                />
+              )}
+              refreshing={refreshing}
+              onRefresh={this.onRefresh}
+            />
             )}
-            refreshing={refreshing}
-            onRefresh={this.onRefresh}
-          />
-        )}
+          </>
+        )
+        }
+        
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.backgroundFeedColor,
-  },
-  emptyText: {
-    textAlign: 'center',
-    margin: '0 auto',
-    marginTop: '50%',
-    fontSize: 20,
-    opacity: 0.3,
-    color: '#888',
-  },
-  flatList: {
-  }
-});
-
-const mapStateToProps = ({posts}) => {
+const mapStateToProps = ({posts, user}) => {
   return {
     posts: posts.posts,
+    name: user.name,
   };
 };
 

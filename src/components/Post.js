@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Image, Dimensions, Text} from 'react-native';
+import {View, Image, Text} from 'react-native';
 import Author from './Author';
 import Comments from './Comments';
 import AddComment from './AddComment';
+import { styles } from './styles/post';
 
 class Post extends Component {
   render() {
@@ -20,7 +21,7 @@ class Post extends Component {
         <View style={styles.imageContainer}>
           <Image source={{uri: this.props.image}} style={styles.image} />
         </View>
-        <Author email={this.props.email} nickname={this.props.nickname} />
+        <Author email={this.props.email} nickname={this.props.nickname}/>
         <View >
           <Text style={styles.description}>{this.props.nickname}: {this.props.description}</Text>
         </View>
@@ -36,24 +37,6 @@ class Post extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  image: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height * (2 / 4),
-  },
-  imageContainer: {
-    backgroundColor: '#1E1C1C',
-    marginTop: 60
-  },
-  description: {
-    color: '#FFF',
-    marginLeft: 20,
-  }
-});
 
 const mapStateToProps = ({user}) => {
   return {

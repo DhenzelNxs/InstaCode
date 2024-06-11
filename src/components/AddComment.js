@@ -4,11 +4,11 @@ import {addComment} from '../store/actions/post';
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
   TouchableWithoutFeedback as TWF,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { styles } from './styles/addcomment';
 
 class AddComment extends Component {
   state = {
@@ -63,24 +63,6 @@ class AddComment extends Component {
     return <View style={{flex: 1, marginLeft: 10}}>{commentArea}</View>;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  input: {
-    width: '90%',
-    color: '#FFF',
-  },
-  caption: {
-    marginLeft: 10,
-    fontSize: 12,
-    color: '#FFF',
-  },
-});
 
 const mapStateToProps = ({user}) => {
   return {

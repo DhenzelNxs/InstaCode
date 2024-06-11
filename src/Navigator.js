@@ -26,7 +26,6 @@ function LoginOrProfileRoute() {
         headerTintColor: colors.loadingColor
         }}>
       <Stack.Screen {...MenuRoutes.Login} />
-      <Stack.Screen {...MenuRoutes.Profile}/>
       <Stack.Screen {...MenuRoutes.Register} />
     </Stack.Navigator>
   );
@@ -44,6 +43,15 @@ function SplashToRoutes() {
         }}>
         <Stack.Screen {...MenuRoutes.Splash} />
         <Stack.Screen name="Routes" component={Routes} />
+        <Stack.Screen
+        name="loginorprofile"
+        component={LoginOrProfileRoute}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
+          tabBarActiveTintColor: '#19F28B'
+        }}
+      />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -110,7 +118,7 @@ const MenuRoutes = {
 };
 
 const MenuConfig = {
-  initialRouteName: 'Feed',
+  initialRouteName: 'Profile',
   screenOptions: {
     headerShown: false,
     tabBarShowLabel: false,
@@ -127,15 +135,7 @@ function Routes() {
     <Tab.Navigator {...MenuConfig} detachInactiveScreens={false}>
       <Tab.Screen {...MenuRoutes.Feed} />
       <Tab.Screen {...MenuRoutes.Add} />
-      <Tab.Screen
-        name="loginorprofile"
-        component={LoginOrProfileRoute}
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
-          tabBarActiveTintColor: '#19F28B'
-        }}
-      />
+      <Tab.Screen {...MenuRoutes.Profile}/>
     </Tab.Navigator>
   );
 }

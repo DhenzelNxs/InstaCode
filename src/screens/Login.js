@@ -11,17 +11,20 @@ import {
   Image
 } from 'react-native';
 import { colors } from '../GlobalStyle/Style';
+import { styles } from './styles/login';
 
 class Login extends Component {
   state = {
     name: 'temporario',
     email: '',
     password: '',
+    focusEmail: false,
+    focusPassword: false,
   };
 
   componentDidUpdate = prevProps => {
     if (prevProps.isLoading && !this.props.isLoading) {
-      this.props.navigation.navigate('Profile');
+      this.props.navigation.navigate('Routes');
     }
   };
 
@@ -41,20 +44,24 @@ class Login extends Component {
           <TextInput
           placeholder="Email"
           placeholderTextColor="#FFF"
-          style={styles.input}
+          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : '#FFF'}]}
           autoFocus={false}
           keyboardType="email-address"
           value={this.state.email}
           onChangeText={email => this.setState({email})}
+          onFocus={() => this.setState({focusEmail: true})}
+          onBlur={() => this.setState({focusEmail: false})}
         />
         <TextInput
           placeholder="Senha"
           placeholderTextColor="#FFF"
-          style={styles.input}
+          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : '#FFF'}]}
           autoFocus={false}
-          keyboardType="visible-password"
+          secureTextEntry={true}
           value={this.state.password}
           onChangeText={password => this.setState({password})}
+          onFocus={() => this.setState({focusPassword: true})}
+          onBlur={() => this.setState({focusPassword: false})}
         />
         </View>
 
@@ -77,60 +84,6 @@ class Login extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.backgroundFeedColor
-  },
-  Loginbuttom: {
-    padding: 10,
-    paddingRight: 30,
-    paddingLeft: 30,
-    backgroundColor: colors.loadingColor,
-    marginTop: 50,
-    borderRadius: 10
-  },
-  Registerbuttom: {
-    padding: 10,
-  },
-  buttomText: {
-    fontSize: 20,
-    color: '#000',
-    fontStyle: "italic",
-    fontWeight: "500",
-    textAlign: "center"
-  },
-  input: {
-    marginTop: 20,
-    width: '90%',
-    backgroundColor: colors.backgroundFeedColor,
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#FFF',
-    color: '#FFF',
-    borderRadius: 10,
-  },
-  image: {
-    height: 350,
-    width: 350,
-    resizeMode: 'contain',
-    position: 'absolute',
-    bottom: "50%",
-  },
-  inputContainer: {
-    width: "100%",
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20
-  },
-  registerContainer: {
-    position: "absolute",
-    bottom: 30
-  }
-});
 
 const mapStateToProp = ({user}) => {
   return {

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
+import { styles } from './styles/comments';
 
 class Comments extends Component {
   render() {
@@ -20,24 +21,5 @@ class Comments extends Component {
     return <View style={styles.container}>{view}</View>;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 10,
-  },
-  commentContainer: {
-    flexDirection: 'row',
-    marginTop: 5,
-  },
-  nickname: {
-    marginLeft: 5,
-    fontWeight: 'bold',
-    color: '#FFF',
-  },
-  comment: {
-    color: '#FFF',
-  },
-});
 
 export default Comments;
