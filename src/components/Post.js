@@ -5,8 +5,28 @@ import Author from './Author';
 import Comments from './Comments';
 import AddComment from './AddComment';
 import { styles } from './styles/post';
+import axios from 'axios';
 
 class Post extends Component {
+  state = {
+    profile_image: "",
+  }
+
+  componentDidMount = () => {
+    this.requestProfileImage();
+  }
+
+  requestProfileImage = () => {
+    axios
+      .get('/users')
+      .catch(err => {console.log(`${err}`)})
+      .then(res => {
+        const data = res.data.users
+        const user = data.filter(user => this.props.nickname === user.name)
+        this.setState({profile_image: user[0].profile_image})
+      }) 
+  }
+
   render() {
     const addComment = this.props.name ? (
       <AddComment
@@ -15,6 +35,7 @@ class Post extends Component {
         requestFunc={this.props.requestFunc}
       />
     ) : null;
+
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -23,8 +44,8 @@ class Post extends Component {
         <Author 
           email={this.props.email}
           nickname={this.props.nickname} 
-          profile_image={this.props.profile_image}/>
-        <View >
+          profile_image={this.state.profile_image}/>
+        <View>
           <Text style={styles.description}>{this.props.nickname}: {this.props.description}</Text>
         </View>
         {this.props.comments.length > 0 ? 

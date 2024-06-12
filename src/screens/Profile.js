@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout, updateProfile } from '../store/actions/user';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text,TouchableOpacity, Alert, Image, } from 'react-native';
 import { colors } from '../GlobalStyle/Style';
 import axios from 'axios';
 import { FlatList } from 'react-native-gesture-handler';

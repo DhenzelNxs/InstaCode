@@ -139,7 +139,7 @@ export const updateProfile = profile => {
         dispatch(
           setMessage({
             title: 'Sucesso!',
-            text: `Perfil atualizado com sucesso`,
+            text: `Perfil atualizado com sucesso! \nPode durar alguns minutos ate que todos os campos sejam autalizados`,
           }),
         )
       });
