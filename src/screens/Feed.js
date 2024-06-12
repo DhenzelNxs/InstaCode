@@ -29,7 +29,6 @@ class Feed extends Component {
 
   async componentDidMount() {
     this.requestPosts();
-    console.log("Props name: ", this.props.name)
   }
 
   onRefresh = () => {
@@ -112,6 +111,7 @@ const mapStateToProps = ({posts, user}) => {
   return {
     posts: posts.posts,
     name: user.name,
+    profile_image: user.profile_image
   };
 };
 

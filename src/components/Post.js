@@ -15,7 +15,6 @@ class Post extends Component {
         requestFunc={this.props.requestFunc}
       />
     ) : null;
-    console.log(this.props.nickname)
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>

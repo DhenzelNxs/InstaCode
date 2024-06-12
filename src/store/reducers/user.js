@@ -3,6 +3,7 @@ import {
   USER_LOGGED_OUT,
   LOADING_USER,
   USER_LOADED,
+  SET_PROFILE_IMAGE
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -39,6 +40,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
       };
+    case SET_PROFILE_IMAGE:
+      return {
+        ...state,
+        profile_image: action.payload.profile_image,
+      }
     default:
       return state;
   }

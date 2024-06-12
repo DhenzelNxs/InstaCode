@@ -20,7 +20,6 @@ export const AddPost = post => {
 
 export const addComment = payload => {
   return dispatch => {
-    console.log(payload);
     axios
       .get(`/posts/getpost/${payload.postId}`)
       .catch(err => {

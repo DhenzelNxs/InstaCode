@@ -44,7 +44,7 @@ class Profile extends Component {
     const callback = res => {
       if (!res.didCancel) {
         this.setState({
-          profileImage: 'data:image/jpeg;base64,' + res.assets[0].base64,
+          profileImage: res.assets[0].uri,
         });
 
         this.props.onUpdateProfile({

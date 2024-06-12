@@ -3,6 +3,7 @@ import {
   USER_LOGGED_OUT,
   LOADING_USER,
   USER_LOADED,
+  SET_PROFILE_IMAGE
 } from './actionTypes';
 import axios from 'axios';
 import {setMessage} from './message';
@@ -11,6 +12,13 @@ export const userLogged = user => {
   return {
     type: USER_LOGGED_IN,
     payload: user,
+  };
+};
+
+export const setProfileImage = image => {
+  return {
+    type: SET_PROFILE_IMAGE,
+    payload: image,
   };
 };
 
@@ -135,6 +143,7 @@ export const updateProfile = profile => {
           }),
         )
       });
+      dispatch(setProfileImage({profile_image: profile.profile_image}))
   };
 };
 
