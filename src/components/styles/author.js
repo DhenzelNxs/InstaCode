@@ -19,6 +19,13 @@ export const styles = StyleSheet.create({
       marginVertical: 10,
       fontSize: 15,
       fontWeight: '400',
-      fontStyle: 'italic'
+      fontStyle: 'italic',
+      marginLeft: 5,
+    },
+    Image: {
+      width: 36,
+      height: 36,
+      borderRadius: 18,
+      marginLeft: 5,
     },
   });

@@ -20,10 +20,10 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       marginTop: 20,
     },
-    image: {
-      height: 30,
-      width: 30,
-      resizeMode: 'contain',
+    Image: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
     },
     title: {
       color: '#19F28B',
@@ -39,7 +39,8 @@ export const styles = StyleSheet.create({
     user: {
       fontSize: 10,
       color: '#FFF',
-      fontStyle: 'italic'
+      fontStyle: 'italic',
+      marginRight: 5
     },
     avatar: {
       width: 30,

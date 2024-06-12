@@ -21,7 +21,10 @@ class Post extends Component {
         <View style={styles.imageContainer}>
           <Image source={{uri: this.props.image}} style={styles.image} />
         </View>
-        <Author email={this.props.email} nickname={this.props.nickname}/>
+        <Author 
+          email={this.props.email}
+          nickname={this.props.nickname} 
+          profile_image={this.props.profile_image}/>
         <View >
           <Text style={styles.description}>{this.props.nickname}: {this.props.description}</Text>
         </View>
@@ -41,6 +44,7 @@ class Post extends Component {
 const mapStateToProps = ({user}) => {
   return {
     name: user.name,
+    profile_image: user.profile_image
   };
 };
 

@@ -13,13 +13,6 @@ import { styles } from './styles/header';
 
 class Header extends Component {
   render() {
-    const name = this.props.name || 'Fazer Login';
-    const gravatar = this.props.email ? (
-      <Gravatar
-        options={{email: this.props.email, secure: true}}
-        style={styles.avatar}
-      />
-    ) : null;
     return (
       <View style={styles.container}>
         <View style={styles.rowCotainer}>
@@ -27,9 +20,14 @@ class Header extends Component {
         </View>
         <View style={styles.userContainer}>
           <TouchableOpacity onPress={() => this.props.navigate('loginorprofile')}>
-            <Text style={styles.user}>{name}</Text>
+            <Text style={styles.user}>{this.props.name}</Text>
           </TouchableOpacity>
-          {gravatar}
+          <View >
+            <Image 
+              style={styles.Image}
+              source={{uri: this.props.profile_image}}
+            />
+          </View>
         </View>
       </View>
     );
@@ -40,6 +38,7 @@ const mapStateToProps = ({user}) => {
   return {
     email: user.email,
     name: user.name,
+    profile_image: user.profile_image
   };
 };
 

@@ -27,6 +27,7 @@ export const createUser = user => {
         name: user.name,
         email: user.email,
         password: user.password,
+        profile_image: null,
       })
       .catch(err => {
         dispatch(
@@ -81,7 +82,13 @@ export const login = user => {
               if (response.password === user.password) {
                 user.password = null;
                 user.name = response.name;
-                dispatch(userLogged(user));
+                dispatch(userLogged({
+                  name: response.name,
+                  email: response.email,
+                  password: response.password,
+                  profile_image: response.profile_image,
+                  id: response.id
+                }));
                 dispatch(userLoaded());
               } else {
                 dispatch(
@@ -107,3 +114,27 @@ export const login = user => {
       });
   };
 };
+
+export const updateProfile = profile => {
+  return dispatch => {
+    axios
+      .patch(`/update_profile_image/${profile.profile_id}`, {profile_image: profile.profile_image})
+      .catch(err => {
+        dispatch(
+          setMessage({
+            title: 'Erro',
+            text: `Ocorreu um erro inesperado!! (${err})`,
+          }),
+        );
+      })
+      .then(res => {
+        dispatch(
+          setMessage({
+            title: 'Sucesso!',
+            text: `Perfil atualizado com sucesso`,
+          }),
+        )
+      });
+  };
+};
+

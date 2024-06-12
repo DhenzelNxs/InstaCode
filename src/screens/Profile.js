@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../store/actions/user';
+import { logout, updateProfile } from '../store/actions/user';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
-import { Gravatar } from 'react-native-gravatar';
 import { colors } from '../GlobalStyle/Style';
 import axios from 'axios';
 import { FlatList } from 'react-native-gesture-handler';
@@ -15,7 +14,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 class Profile extends Component {
   state = {
     posts: [],
-    profileImage: 'https://galeri14.uludagsozluk.com/827/whatsapp-profiline-kendi-fotografini-koymayan-kisi_1132920.jpg',
+    profileImage: this.props.profile_image,
     base64: '',
   };
 
@@ -45,9 +44,13 @@ class Profile extends Component {
     const callback = res => {
       if (!res.didCancel) {
         this.setState({
-          profileImage: res.assets[0].uri,
-          base64: 'data:image/jpeg;base64,' + res.assets[0].base64,
+          profileImage: 'data:image/jpeg;base64,' + res.assets[0].base64,
         });
+
+        this.props.onUpdateProfile({
+          profile_id: this.props.id,
+          profile_image: this.state.profileImage,
+        })
       }
     };
 
@@ -79,8 +82,7 @@ class Profile extends Component {
 
   render() {
     const { posts, profileImage } = this.state;
-    console.log(posts.length);
-
+    
     return (
       <View style={styles.container}>
         <View styles={styles.imageContainer}>
@@ -129,12 +131,15 @@ const mapStateToProps = ({ user }) => {
   return {
     email: user.email,
     name: user.name,
+    profile_image: user.profile_image,
+    id: user.id,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onLogout: () => dispatch(logout()),
+    onUpdateProfile: profile => dispatch(updateProfile(profile))
   };
 };
 

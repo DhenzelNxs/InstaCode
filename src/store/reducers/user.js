@@ -9,6 +9,8 @@ const initialState = {
   name: null,
   email: null,
   isLoading: false,
+  profile_image: "",
+  id: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +20,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         name: action.payload.name,
         email: action.payload.email,
+        profile_image: action.payload.profile_image,
+        id: action.payload.id
       };
     case USER_LOGGED_OUT:
       return {
