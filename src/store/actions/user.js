@@ -3,10 +3,18 @@ import {
   USER_LOGGED_OUT,
   LOADING_USER,
   USER_LOADED,
-  SET_PROFILE_IMAGE
+  SET_PROFILE_IMAGE,
+  REQUEST_USER_POSTS
 } from './actionTypes';
 import axios from 'axios';
 import {setMessage} from './message';
+
+export const getUserPosts = name => {
+  return {
+    type: REQUEST_USER_POSTS,
+    payload: name
+  }
+}
 
 export const userLogged = user => {
   return {
@@ -146,4 +154,18 @@ export const updateProfile = profile => {
       dispatch(setProfileImage({profile_image: profile.profile_image}))
   };
 };
+
+export const getUserPost = name => {
+  return async dispatch => {
+    await axios.get(`/users/getposts/${name}`)
+    .catch(err => {
+      Alert.alert('Error', `${err}`);
+    })
+    .then(res => {
+      const data = res.data.posts;
+      dispatch(getUserPosts({ user_posts: data.reverse() }));
+    });
+  }
+  
+}
 

@@ -1,7 +1,14 @@
 import {Alert} from 'react-native';
-import {ADD_POST, ADD_COMMENT} from './actionTypes';
+import {REQUEST_POSTS} from './actionTypes';
 import {setMessage} from './message';
 import axios from 'axios';
+
+export const requestPosts = posts => {
+  return {
+    type: REQUEST_POSTS,
+    payload: posts
+  };
+};
 
 export const AddPost = post => {
   return dispatch => {
@@ -35,4 +42,17 @@ export const addComment = payload => {
           });
       });
   };
+};
+
+export const requestPost = () => {
+  return async dispatch => {
+    await axios
+      .get('/posts')
+      .then(response => {
+        dispatch(requestPosts(response.data.posts.reverse()))
+      })
+      .catch(error => {
+        dispatch(Alert.alert('Error', `${error}`));
+      });
+  }
 };

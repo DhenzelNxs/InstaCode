@@ -19,7 +19,7 @@ class Header extends Component {
           <Text style={styles.title}>InstaCode</Text>
         </View>
         <View style={styles.userContainer}>
-          <TouchableOpacity onPress={() => this.props.navigate('loginorprofile')}>
+          <TouchableOpacity onPress={() => this.props.navigate('Profile')}>
             <Text style={styles.user}>{this.props.name}</Text>
           </TouchableOpacity>
           <View >

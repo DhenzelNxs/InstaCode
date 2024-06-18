@@ -15,6 +15,7 @@ import axios from 'axios';
 import { colors } from '../GlobalStyle/Style';
 import mock from '../../mock.json'
 import { styles } from './styles/feed';
+import { requestPost } from '../store/actions/post';
 
 class Feed extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Feed extends Component {
   }
 
   async componentDidMount() {
-    this.requestPosts();
+    this.props.onResquestPosts();
   }
 
   onRefresh = () => {
@@ -76,7 +77,7 @@ class Feed extends Component {
             <ActivityIndicator color={colors.loadingColor} size={45} />
             ) : (
             <FlatList
-              data={data}
+              data={this.props.posts}
               contentContainerStyle={styles.flatList}
               ListEmptyComponent={
                 <View>
@@ -90,7 +91,10 @@ class Feed extends Component {
                 <Post
                   key={item.id}
                   {...item}
+                  likes={item.likes}
+                  liked_users={item.liked_by}
                   keys={keys[data.indexOf(item)]}
+                  navigation={this.props.navigation.navigate}
                   requestFunc={this.requestPosts}
                 />
               )}
@@ -115,4 +119,10 @@ const mapStateToProps = ({posts, user}) => {
   };
 };
 
-export default connect(mapStateToProps)(Feed);
+const mapDispatchToProps = dispatch => {
+  return {
+    onResquestPosts: () => dispatch(requestPost())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

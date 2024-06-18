@@ -45,7 +45,7 @@ class AddComment extends Component {
             placeholderTextColor={'#CCC'}
           />
           <TWF onPress={() => this.setState({editMode: false})}>
-            <Icon name="times" size={15} color="#555" />
+            <Icon name="times" size={15} color="#FFF" />
           </TWF>
         </View>
       );

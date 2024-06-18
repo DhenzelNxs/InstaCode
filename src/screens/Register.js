@@ -40,6 +40,7 @@ class Register extends Component {
           onChangeText={name => this.setState({name})}
           onFocus={() => this.setState({focusName: true})}
           onBlur={() => this.setState({focusName: false})}
+          returnKeyType='next'
         />
         <TextInput
           placeholder="Email"
@@ -50,6 +51,7 @@ class Register extends Component {
           onChangeText={email => this.setState({email})}
           onFocus={() => this.setState({focusEmail: true})}
           onBlur={() => this.setState({focusEmail: false})}
+          returnKeyType='next'
         />
         <TextInput
           placeholder="Senha"

@@ -1,4 +1,4 @@
-import {ADD_POST, ADD_COMMENT} from '../actions/actionTypes';
+import {ADD_POST, ADD_COMMENT, REQUEST_POSTS} from '../actions/actionTypes';
 
 const initialState = {
   posts: [],
@@ -27,6 +27,11 @@ const reducer = (state = initialState, action) => {
           return post;
         }),
       };
+    case REQUEST_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+      }
     default:
       return state;
   }

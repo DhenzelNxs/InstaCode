@@ -7,14 +7,29 @@ export const styles = StyleSheet.create({
     },
     commentContainer: {
       flexDirection: 'row',
-      marginTop: 5,
+      marginTop: 10,
     },
     nickname: {
-      marginLeft: 5,
       fontWeight: 'bold',
       color: '#FFF',
     },
     comment: {
       color: '#FFF',
+    },
+    Image: {
+      width: 30,
+      height: 30,
+      borderRadius: 15,
+    },
+    textContainer: {
+      flex: 1,
+      flexDirection: 'column',
+      textAlign: 'justify',
+      marginLeft: 10
+    },
+    centeredText: {
+      color: '#FFF',
+      textAlign: 'center',
+      fontWeight: '300',
     },
   });

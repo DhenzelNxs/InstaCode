@@ -1,76 +1,55 @@
 {
     "posts": [
         {
-            "comments": [],
+            "comments": [
+                
+            ],
             "description": "JavaScript",
             "email": "dhenzellimaribeiro@gmail.com",
             "id": 1,
             "image": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
-            "nickname": "Dhenzel Lima"
+            "nickname": "Dhenzel Lima",
+            "likes": 253,
+            "liked_by": []
         },
         {
-            "comments": [],
+            "comments": [
+                {
+                    "nickname":"Dhenzel Lima",
+                    "comment": "Que Legal mano"
+                },
+                {
+                    "nickname":"Dhenzel Lima",
+                    "comment": "Que Legal mano"
+                },
+                {
+                    "nickname":"Dhenzel Lima",
+                    "comment": "Que Legal mano"
+                },
+                {
+                    "nickname":"Dhenzel Lima",
+                    "comment": "Que Legal mano"
+                },
+                {
+                    "nickname":"Dhenzel Lima",
+                    "comment": "Que Legal mano"
+                },
+                {
+                    "nickname":"Dhenzel Lima",
+                    "comment": "Que Legal mano"
+                },
+                {
+                    "nickname":"Dhenzel Lima",
+                    "comment": "Que Legal mano"
+                }
+            ],
             "description": "Python",
             "email": "dhenzellimaribeiro@gmail.com",
             "id": 2,
             "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Python_logo_51.svg/1200px-Python_logo_51.svg.png",
-            "nickname": "Dhenzel Lima"
-        },
-        {
-            "comments": [],
-            "description": "Java",
-            "email": "dhenzellimaribeiro@gmail.com",
-            "id": 3,
-            "image": "https://blog.infnet.com.br/wp-content/uploads/sites/6/2022/09/java_original_wordmark_logo_icon_146459.png",
-            "nickname": "Dhenzel Lima"
-        },
-        {
-            "comments": [],
-            "description": "React Native",
-            "email": "dhenzellimaribeiro@gmail.com",
-            "id": 4,
-            "image": "https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png",
-            "nickname": "Dhenzel Lima"
-        },
-        {
-            "comments": [],
-            "description": "Flask",
-            "email": "dhenzellimaribeiro@gmail.com",
-            "id": 5,
-            "image": "https://p7.hiclipart.com/preview/508/316/14/flask-by-example-python-web-framework-bottle-bottle.jpg",
-            "nickname": "Dhenzel Lima"
-        },
-        {
-            "comments": [],
-            "description": "Redux",
-            "email": "dhenzellimaribeiro@gmail.com",
-            "id": 6,
-            "image": "https://raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png",
-            "nickname": "Dhenzel Lima"
-        },
-        {
-            "comments": [],
-            "description": "Android",
-            "email": "dhenzellimaribeiro@gmail.com",
-            "id": 7,
-            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Android_logo_2019.png/599px-Android_logo_2019.png",
-            "nickname": "Dhenzel Lima"
-        },
-        {
-            "comments": [],
-            "description": "React-Navigation",
-            "email": "dhenzellimaribeiro@gmail.com",
-            "id": 8,
-            "image": "https://miro.medium.com/v2/resize:fit:1400/1*dHT84yUQq63bHPY7t5w-Ig.png",
-            "nickname": "Dhenzel Lima"
-        },
-        {
-            "comments": [],
-            "description": "Kotlin",
-            "email": "dhenzellimaribeiro@gmail.com",
-            "id": 9,
-            "image": "https://i.pinimg.com/736x/a3/16/8c/a3168c42c9b0b30df7aaaf0bb733504f.jpg",
-            "nickname": "Dhenzel Lima"
+            "nickname": "Dhenzel Lima",
+            "likes": 674,
+            "liked_by": []
         }
     ]
 }

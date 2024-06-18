@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logout, updateProfile } from '../store/actions/user';
+import { getUserPost, logout, updateProfile } from '../store/actions/user';
 import { View, Text,TouchableOpacity, Alert, Image, } from 'react-native';
 import { colors } from '../GlobalStyle/Style';
 import axios from 'axios';
@@ -18,24 +18,13 @@ class Profile extends Component {
     base64: '',
   };
 
-  UNSAFE_componentWillMount = () => {
-    this.getUserPosts();
-  };
+  componentDidMount = () => {
+    this.props.onRequestUserPosts(this.props.name)
+  }
 
   logout = () => {
     this.props.onLogout();
     this.props.navigation.navigate('Auth');
-  };
-
-  getUserPosts = async () => {
-    await axios.get(`/users/getposts/${this.props.name}`)
-      .catch(err => {
-        Alert.alert('Error', `${err}`);
-      })
-      .then(res => {
-        const data = res.data.posts;
-        this.setState({ posts: data.reverse() });
-      });
   };
 
   imagePickMode = mode => {
@@ -82,7 +71,6 @@ class Profile extends Component {
 
   render() {
     const { posts, profileImage } = this.state;
-    
     return (
       <View style={styles.container}>
         <View styles={styles.imageContainer}>
@@ -100,7 +88,7 @@ class Profile extends Component {
         <Text style={styles.email}>{this.props.email}</Text>
         <Text style={{fontSize: 20, marginTop: 20, color: colors.loadingColor}}>Suas Postagens</Text>
         <FlatList
-          data={posts}
+          data={this.props.user_posts}
           style={[styles.flatlist, posts.length > 2 ? {width: '100%'} : {width: '60%'}]}
           numColumns={3} 
           ListEmptyComponent={
@@ -133,13 +121,15 @@ const mapStateToProps = ({ user }) => {
     name: user.name,
     profile_image: user.profile_image,
     id: user.id,
+    user_posts: user.user_posts
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onLogout: () => dispatch(logout()),
-    onUpdateProfile: profile => dispatch(updateProfile(profile))
+    onUpdateProfile: profile => dispatch(updateProfile(profile)),
+    onRequestUserPosts: name => dispatch(getUserPost(name))
   };
 };
 

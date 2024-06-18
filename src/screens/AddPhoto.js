@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {AddPost} from '../store/actions/post';
+import {AddPost, requestPost} from '../store/actions/post';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { colors } from '../GlobalStyle/Style';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles/addphoto';
+import { getUserPost } from '../store/actions/user';
 
 const noUser = 'Você precisa estar logado para adicionar imagens';
 
@@ -31,7 +32,7 @@ class AddPhoto extends Component {
 
   imagePickMode = mode => {
     this.setState({loading: true});
-    const configCam = {maxWidth: 800, maxHeight: 600, includeBase64: true};
+    const configCam = {maxWidth: 800, maxHeight: 600, includeBase64: true, mediaType: "mixed"};
     const callback = res => {
       if (!res.didCancel) {
         this.setState({
@@ -66,7 +67,7 @@ class AddPhoto extends Component {
     }
     Alert.alert('Adicionar Imagem', 'Como quer anexar a imagem ?', [
       {
-        text: 'Tirar Foto',
+        text: 'Camera',
         onPress: () => this.imagePickMode('camera'),
       },
       {
@@ -84,12 +85,16 @@ class AddPhoto extends Component {
     this.props.onAddPost({
       nickname: this.props.name,
       email: this.props.email,
-      image: this.state.base64,
+      image: this.state.image,
+      likes: null,
       description: this.state.description,
       comments: [],
+      liked_by: [],
     });
     setTimeout(() => {
-      this.setState({image: null, description: '', base64: null});
+      this.setState({image: '', description: '', base64: null});
+      this.props.onRequestPost()
+      this.props.onRequestuserPost(this.props.name)
     }, 2000)
     this.props.navigation.navigate('Feed');
   };
@@ -148,6 +153,8 @@ const mapStateToProps = ({user}) => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddPost: post => dispatch(AddPost(post)),
+    onRequestPost: () => dispatch(requestPost()),
+    onRequestuserPost: name => dispatch(getUserPost(name))
   };
 };
 

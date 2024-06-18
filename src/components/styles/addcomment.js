@@ -6,6 +6,8 @@ export const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 10,
+      color: "#FFF",
+      zIndex: 999
     },
     input: {
       width: '90%',
