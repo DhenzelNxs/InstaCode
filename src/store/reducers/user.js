@@ -4,7 +4,7 @@ import {
   LOADING_USER,
   USER_LOADED,
   SET_PROFILE_IMAGE,
-  REQUEST_USER_POSTS
+  REQUEST_USER_POSTS,
 } from '../actions/actionTypes';
 
 const initialState = {

@@ -7,34 +7,47 @@ import {
   Text,
   Alert,
   ActivityIndicator,
-  TouchableOpacity
+  TouchableOpacity,
+  Appearance
 } from 'react-native';
 import Header from '../components/Header';
 import Post from '../components/Post';
 import axios from 'axios';
 import { colors } from '../GlobalStyle/Style';
 import mock from '../../mock.json'
-import { styles } from './styles/feed';
+import { colorTheme } from './styles/feed';
 import { requestPost } from '../store/actions/post';
 
 class Feed extends Component {
   constructor(props) {
     super(props);
+    const colorScheme = Appearance.getColorScheme();
     this.state = {
       data: [],
       keys: [],
       refreshing: false,
       loading: false,
+      colorScheme: colorScheme,
+      styles: colorTheme(colorScheme),
     };
   }
 
   async componentDidMount() {
-    this.props.onResquestPosts();
+    this.props.onRequestPosts();
+    this.colorSchemeListener = Appearance.addChangeListener(({ colorScheme }) => {
+      this.setState({ colorScheme: colorScheme, styles: colorTheme(colorScheme) });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.colorSchemeListener) {
+      this.colorSchemeListener.remove();
+    }
   }
 
   onRefresh = () => {
     this.setState({refreshing: true});
-    this.requestPosts();
+    this.props.onRequestPosts();
     this.setState({refreshing: false});
   };
 
@@ -51,7 +64,7 @@ class Feed extends Component {
     this.setState({loading: false});
   };
   render() {
-    const {data, refreshing, loading, keys} = this.state;
+    const {data, refreshing, keys, styles} = this.state;
     //console.log('data: ', data);
     return (
       <View style={styles.container}>
@@ -73,7 +86,7 @@ class Feed extends Component {
         : 
         (
           <>
-            {loading ? (
+            {this.props.loading ? (
             <ActivityIndicator color={colors.loadingColor} size={45} />
             ) : (
             <FlatList
@@ -115,13 +128,14 @@ const mapStateToProps = ({posts, user}) => {
   return {
     posts: posts.posts,
     name: user.name,
-    profile_image: user.profile_image
+    profile_image: user.profile_image,
+    loading: posts.loading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onResquestPosts: () => dispatch(requestPost())
+    onRequestPosts: () => dispatch(requestPost())
   };
 };
 

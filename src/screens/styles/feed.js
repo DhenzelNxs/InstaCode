@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../GlobalStyle/Style";
 
-export const styles = StyleSheet.create({
+export const colorTheme = (colorScheme) => StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colors.backgroundFeedColor,
+      backgroundColor: colorScheme === "dark" ? colors.backgroundFeedColor : "#FFF",
     },
     emptyText: {
       textAlign: 'center',

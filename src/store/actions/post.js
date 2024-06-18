@@ -1,5 +1,5 @@
 import {Alert} from 'react-native';
-import {REQUEST_POSTS} from './actionTypes';
+import {REQUEST_POSTS, POSTS_LOADED, LOADING_POSTS} from './actionTypes';
 import {setMessage} from './message';
 import axios from 'axios';
 
@@ -7,6 +7,18 @@ export const requestPosts = posts => {
   return {
     type: REQUEST_POSTS,
     payload: posts
+  };
+};
+
+export const loadingPosts = () => {
+  return {
+    type: LOADING_POSTS
+  };
+};
+
+export const postsLoaded = () => {
+  return {
+    type: POSTS_LOADED,
   };
 };
 
@@ -46,6 +58,7 @@ export const addComment = payload => {
 
 export const requestPost = () => {
   return async dispatch => {
+    dispatch(loadingPosts())
     await axios
       .get('/posts')
       .then(response => {
@@ -54,5 +67,6 @@ export const requestPost = () => {
       .catch(error => {
         dispatch(Alert.alert('Error', `${error}`));
       });
+      dispatch(postsLoaded())
   }
 };

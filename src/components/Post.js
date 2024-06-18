@@ -100,7 +100,7 @@ class Post extends Component {
                 >
                   <Icon name="close" size={30} color="#FFF"/>
                 </TouchableOpacity>
-                <ScrollView style={{height: "70%"}}>
+                <ScrollView style={{height: "60%"}}>
                   <Comments 
                     comments={this.props.comments}
                     profile_image={this.state.profile_image} 

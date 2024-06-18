@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: 10,
       color: "#FFF",
       zIndex: 999
     },
     input: {
       width: '90%',
       color: '#FFF',
+      zIndex: 9999
     },
     caption: {
       marginLeft: 10,

@@ -1,7 +1,14 @@
-import {ADD_POST, ADD_COMMENT, REQUEST_POSTS} from '../actions/actionTypes';
+import {
+  ADD_POST,
+  ADD_COMMENT,
+  REQUEST_POSTS,
+  LOADING_POSTS,
+  POSTS_LOADED 
+} from '../actions/actionTypes';
 
 const initialState = {
   posts: [],
+  loading: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +38,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         posts: action.payload,
+      }
+    case LOADING_POSTS:
+      return {
+        ...state,
+        loading: true
+      }
+    case POSTS_LOADED:
+      return {
+        ...state,
+        loading: false
       }
     default:
       return state;
