@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from "react-native";
 import { colors } from "../../GlobalStyle/Style";
 
-export const styles = StyleSheet.create({
+export const colorTheme = colorScheme => StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.backgroundFeedColor,
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     imageContainer: {
       width: '90%',
       height: '50%',
-      backgroundColor: '#1E1C1C',
+      backgroundColor: colorScheme === 'dark' ? '#1E1C1C' : '#A1A1A1',
       marginTop: 10,
       justifyContent: 'center',
       alignItems: 'center',

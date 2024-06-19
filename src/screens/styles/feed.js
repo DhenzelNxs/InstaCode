@@ -6,7 +6,7 @@ export const colorTheme = (colorScheme) => StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colorScheme === "dark" ? colors.backgroundFeedColor : "#FFF",
+      backgroundColor: colorScheme === "dark" ? colors.backgroundFeedColor : "#CCCCCC",
     },
     emptyText: {
       textAlign: 'center',

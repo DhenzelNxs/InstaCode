@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
       backgroundColor: colors.backgroundFeedColor,
       height: 40,
       borderWidth: 1,
-      color: '#FFF',
+      color: colors.placeholderTextColor,
       borderRadius: 10,
     },
     image: {

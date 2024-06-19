@@ -2,17 +2,38 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Gravatar} from 'react-native-gravatar';
 import {
-  StyleSheet,
   Text,
   View,
-  Platform,
   Image,
   TouchableOpacity,
+  Appearance
 } from 'react-native';
-import { styles } from './styles/header';
+import { colorTheme } from './styles/header';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    const colorScheme = Appearance.getColorScheme();
+    this.state = {
+      colorScheme: colorScheme,
+      styles: colorTheme(colorScheme),
+    }
+  }
+
+  componentDidMount = () => {
+    this.colorSchemeListener = Appearance.addChangeListener(({ colorScheme }) => {
+      this.setState({ colorScheme: colorScheme, styles: colorTheme(colorScheme) });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.colorSchemeListener) {
+      this.colorSchemeListener.remove();
+    }
+  }
+
   render() {
+    const {styles} = this.state
     return (
       <View style={styles.container}>
         <View style={styles.rowCotainer}>

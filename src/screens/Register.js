@@ -33,8 +33,8 @@ class Register extends Component {
         <View style={styles.inputContainer}>
           <TextInput
           placeholder="Nome"
-          placeholderTextColor="#FFF"
-          style={[styles.input, {borderColor: this.state.focusName ? colors.loadingColor : '#FFF'}]}
+          placeholderTextColor={colors.placeholderTextColor}
+          style={[styles.input, {borderColor: this.state.focusName ? colors.loadingColor : colors.placeholderTextColor}]}
           autoFocus={true}
           value={this.state.name}
           onChangeText={name => this.setState({name})}
@@ -44,8 +44,8 @@ class Register extends Component {
         />
         <TextInput
           placeholder="Email"
-          placeholderTextColor="#FFF"
-          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : '#FFF'}]}
+          placeholderTextColor={colors.placeholderTextColor}
+          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : colors.placeholderTextColor}]}
           keyboardType="email-address"
           value={this.state.email}
           onChangeText={email => this.setState({email})}
@@ -55,8 +55,8 @@ class Register extends Component {
         />
         <TextInput
           placeholder="Senha"
-          placeholderTextColor="#FFF"
-          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : '#FFF'}]}
+          placeholderTextColor={colors.placeholderTextColor}
+          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : colors.placeholderTextColor}]}
           secureTextEntry={true}
           value={this.state.password}
           onChangeText={password => this.setState({password})}

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../GlobalStyle/Style";
 
 export const styles = StyleSheet.create({
     container: {
@@ -17,9 +18,11 @@ export const styles = StyleSheet.create({
       color: '#FFF',
     },
     Image: {
-      width: 30,
-      height: 30,
-      borderRadius: 15,
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      borderWidth: 1,
+      borderColor: "#FFF"
     },
     textContainer: {
       flex: 1,

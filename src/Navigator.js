@@ -65,7 +65,8 @@ const MenuRoutes = {
     options: {
       title: 'Feed',
       tabBarIcon: ({color}) => <Icon name="home" size={30} color={color} />,
-      tabBarActiveTintColor: '#19F28B'
+      tabBarActiveTintColor: '#19F28B',
+      tabBarInactiveTintColor: '#FFF'
     },
   },
   Add: {
@@ -75,7 +76,8 @@ const MenuRoutes = {
     options: {
       title: 'Add Picture',
       tabBarIcon: ({color}) => <Icon name="plus-square" size={25} color={color} />,
-      tabBarActiveTintColor: '#19F28B'
+      tabBarActiveTintColor: '#19F28B',
+      tabBarInactiveTintColor: '#FFF'
     },
   },
   Profile: {
@@ -87,6 +89,7 @@ const MenuRoutes = {
       tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
       headerShown: false,
       tabBarActiveTintColor: '#19F28B',
+      tabBarInactiveTintColor: '#FFF'
     },
   },
   Login: {
@@ -97,7 +100,8 @@ const MenuRoutes = {
       title: 'Login',
       tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
       headerShown: false,
-      tabBarActiveTintColor: '#19F28B'
+      tabBarActiveTintColor: '#19F28B',
+      tabBarInactiveTintColor: '#FFF'
     },
   },
   Register: {
@@ -107,7 +111,8 @@ const MenuRoutes = {
     options: {
       title: 'Registrar',
       tabBarIcon: ({color}) => <Icon name="user" size={25} color={color} />,
-      tabBarActiveTintColor: '#19F28B'
+      tabBarActiveTintColor: '#19F28B',
+      tabBarInactiveTintColor: '#FFF'
     },
   },
   Splash: {
@@ -135,7 +140,7 @@ function Routes() {
     <Tab.Navigator {...MenuConfig} detachInactiveScreens={false}>
       <Tab.Screen {...MenuRoutes.Feed} />
       <Tab.Screen {...MenuRoutes.Add} />
-      <Tab.Screen {...MenuRoutes.Profile}/>
+      <Tab.Screen {...MenuRoutes.Profile} />
     </Tab.Navigator>
   );
 }

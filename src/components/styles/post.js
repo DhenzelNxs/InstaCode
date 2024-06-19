@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../GlobalStyle/Style";
 
-export const styles = StyleSheet.create({
+export const colorTheme = colorScheme => StyleSheet.create({
     container: {
       flex: 1,
     },
@@ -10,11 +10,11 @@ export const styles = StyleSheet.create({
       height: Dimensions.get('window').height * (2 / 4),
     },
     imageContainer: {
-      backgroundColor: '#1E1C1C',
+      backgroundColor: colorScheme === "dark" ? '#1E1C1C' : '#7A6F6F',
       marginTop: 60
     },
     description: {
-      color: '#FFF',
+      color: colorScheme === "dark" ? '#FFF': "#000",
       marginLeft: 20,
     },
     like: {
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     modalView: {
       width: '100%',
       height: '50%', // Ocupa 50% da tela
-      backgroundColor: colors.backgroundFeedColor,
+      backgroundColor: colorScheme === "dark" ? colors.backgroundFeedColor : "#7A6F6F",
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
       padding: 20,
@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
       zIndex: 999
     },
     buttonText: {
-      color: 'white',
+      color: colorScheme === "dark" ? 'white': '#000',
       textAlign: 'center',
       fontWeight: 'bold',
     },

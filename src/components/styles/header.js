@@ -1,18 +1,16 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../GlobalStyle/Style";
 
-export const styles = StyleSheet.create({
+export const colorTheme = colorScheme => StyleSheet.create({
     container: {
       position: 'absolute',
       top: Platform.OS === 'ios' ? 20 : 0,
       left: 0,
       right: 0,
       padding: 10,
-      borderBottomWidth: 1,
-      borderColor: '#000',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      backgroundColor: colors.backgroundHeaderColor,
+      backgroundColor: colorScheme === 'dark' ? colors.backgroundHeaderColor : '#AFAFAF',
       zIndex: 1000,
     },
     rowCotainer: {
@@ -24,6 +22,8 @@ export const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 15,
+        borderWidth: 1,
+        borderColor: "#ddd"
     },
     title: {
       color: '#19F28B',

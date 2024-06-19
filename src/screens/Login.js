@@ -43,8 +43,8 @@ class Login extends Component {
         <View style={styles.inputContainer}>
           <TextInput
           placeholder="Email"
-          placeholderTextColor="#FFF"
-          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : '#FFF'}]}
+          placeholderTextColor={colors.placeholderTextColor}
+          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : colors.placeholderTextColor}]}
           autoFocus={false}
           keyboardType="email-address"
           value={this.state.email}
@@ -54,8 +54,8 @@ class Login extends Component {
         />
         <TextInput
           placeholder="Senha"
-          placeholderTextColor="#FFF"
-          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : '#FFF'}]}
+          placeholderTextColor={colors.placeholderTextColor}
+          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : colors.placeholderTextColor}]}
           autoFocus={false}
           secureTextEntry={true}
           value={this.state.password}
@@ -70,7 +70,7 @@ class Login extends Component {
         </TouchableOpacity>
 
         <View style={styles.registerContainer}>
-          <Text style={{color: '#FFF', fontWeight: "300"}}>Ainda não possui uma conta ?</Text>
+          <Text style={{color: colors.textColor, fontWeight: "300"}}>Ainda não possui uma conta ?</Text>
         <TouchableOpacity
           onPress={() => {
             this.props.navigation.navigate('Register');

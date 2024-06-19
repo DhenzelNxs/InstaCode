@@ -1,21 +1,14 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../GlobalStyle/Style";
 
-export const styles = StyleSheet.create({
+export const colorTheme = colorScheme => StyleSheet.create({
     container: {
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: 20,
     },
-    avatar: {
-      width: 30,
-      height: 30,
-      borderRadius: 30,
-      marginHorizontal: 10,
-      borderWidth: 1,
-      borderColor: '#FFF',
-    },
     nickname: {
-      color: '#FFF',
+      color: colorScheme === 'dark' ? '#FFF' : '#000',
       marginVertical: 10,
       fontSize: 15,
       fontWeight: '400',
@@ -27,5 +20,7 @@ export const styles = StyleSheet.create({
       height: 36,
       borderRadius: 18,
       marginLeft: 5,
+      borderWidth: 1,
+      borderColor: colorScheme === 'dark' ? '#FFF' : '#000',
     },
   });

@@ -1,24 +1,47 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Image, Text, TouchableOpacity, Modal, ScrollView} from 'react-native';
+import {
+  View,
+  Image, 
+  Text, 
+  TouchableOpacity, 
+  Modal, 
+  ScrollView,
+  Appearance
+} from 'react-native';
 import Author from './Author';
 import Comments from './Comments';
 import AddComment from './AddComment';
-import { styles } from './styles/post';
+import { colorTheme } from './styles/post';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios';
 import Share from 'react-native-share';
 
 class Post extends Component {
-  state = {
-    profile_image: "",
-    liked: this.props.liked_users?.filter(nickname => nickname.nickname === this.props.name).length > 0,
-    likes: this.props.likes,
-    modalVisible: false,
+  constructor(props) {
+    super(props);
+    const colorScheme = Appearance.getColorScheme();
+    this.state = {
+      profile_image: "",
+      liked: this.props.liked_users?.filter(nickname => nickname.nickname === this.props.name).length > 0,
+      likes: this.props.likes,
+      modalVisible: false,
+      colorScheme: colorScheme,
+      styles: colorTheme(colorScheme),
+    }
   }
 
   componentDidMount = () => {
     this.requestProfileImage();
+    this.colorSchemeListener = Appearance.addChangeListener(({ colorScheme }) => {
+      this.setState({ colorScheme: colorScheme, styles: colorTheme(colorScheme) });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.colorSchemeListener) {
+      this.colorSchemeListener.remove();
+    }
   }
 
   requestProfileImage = () => {
@@ -58,7 +81,7 @@ class Post extends Component {
   };
 
   render() {
-    const {liked, modalVisible} = this.state;
+    const {liked, modalVisible, styles} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -66,14 +89,22 @@ class Post extends Component {
         </View>
         <View style={styles.post_icons}>
           <TouchableOpacity style={styles.like} onPress={() => this.onLike(liked ? 'deslike' : 'like')}>
-            <Icon name='heart-o' size={25} color={liked ? "#F00" : "#FFF"}/>
-            <Text style={{color: "#FFF", fontSize: 20, marginLeft: 6}}>{this.state.likes}</Text>
+            <Icon name='heart-o' 
+            size={25} 
+            color={liked ? "#F00" : this.state.colorScheme === "dark" ? "#FFF" : "#000"}/>
+            <Text 
+            style={
+              {color: this.state.colorScheme === "dark" ? "#FFF" : "#000",
+              fontSize: 20, 
+              marginLeft: 6}}
+              >{this.state.likes}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.comment} onPress={() => {this.setState({modalVisible: !modalVisible})}}>
-            <Icon name='comments-o' size={30} color={"#FFF"}/>
+            <Icon name='comments-o' size={30} color={this.state.colorScheme === "dark" ? "#FFF" : "#000"}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.share} onPress={this.onShare}>
-            <Icon name='share' size={25} color='#FFF'/>
+            <Icon name='share' size={25} color={this.state.colorScheme === "dark" ? "#FFF" : "#000"}/>
           </TouchableOpacity>
         </View>
         <Author 
@@ -117,16 +148,28 @@ class Post extends Component {
         </View>
         {this.props.comments.length <= 0 ?
         (
-          <View><Text 
-        style={{color: '#FFF', marginLeft: 10, fontWeight: 200, marginTop: 20,}}>
-          Ainda não há comentarios
-        </Text></View>
+        <View>
+          <Text 
+            style={{
+              color: this.state.colorScheme === "dark" ? "#FFF" : "#000", 
+              marginLeft: 10, 
+              fontWeight: "300", 
+              marginTop: 20,
+              }}>
+            Ainda não há comentarios
+          </Text>
+        </View>
         )
 
         :
 
         <Text 
-          style={{color: "#FFF", marginLeft: 10, marginTop: 10, fontWeight: "300"}}
+          style={{
+            color: this.state.colorScheme === "dark" ? "#FFF" : "#000", 
+            marginLeft: 10, 
+            marginTop: 10, 
+            fontWeight: "300"
+          }}
           onPress={() => this.setState({ modalVisible: !modalVisible })}
           >
             Ver {this.props.comments.length} {this.props.comments.length > 1 ? "comentários" : "comentário"}

@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
       borderWidth: 1,
       paddingLeft: 15,
       borderRadius: 10,
-      color: '#FFF',
+      color: colors.placeholderTextColor,
     },
     inputContainer: {
       width: '100%',

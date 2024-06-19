@@ -8,22 +8,42 @@ import {
   TextInput,
   Image,
   Alert,
+  Appearance
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { colors } from '../GlobalStyle/Style';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { styles } from './styles/addphoto';
+import { colorTheme } from './styles/addphoto';
 import { getUserPost } from '../store/actions/user';
 
 const noUser = 'Você precisa estar logado para adicionar imagens';
 
 class AddPhoto extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+    const colorScheme = Appearance.getColorScheme();
+    this.state = {
     image: '',
     base64: null,
     description: '',
     loading: false,
+    colorScheme: colorScheme,
+    styles: colorTheme(colorScheme),
   };
+  }
+
+  async componentDidMount() {
+    this.colorSchemeListener = Appearance.addChangeListener(({ colorScheme }) => {
+      this.setState({ colorScheme: colorScheme, styles: colorTheme(colorScheme) });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.colorSchemeListener) {
+      this.colorSchemeListener.remove();
+    }
+  }
+  
 
   /**
     @param {Object} options - As opções para selecionar a imagem.
@@ -100,7 +120,7 @@ class AddPhoto extends Component {
   };
 
   render() {
-    const {loading} = this.state;
+    const {loading, styles} = this.state;
     return (
       <View style={styles.container}>
           <Text style={styles.title}>Compartilhe uma imagem</Text>

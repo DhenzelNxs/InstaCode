@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import { styles } from './styles/author';
+import {View, Text, Image, useColorScheme} from 'react-native';
+import { colorTheme } from './styles/author';
 
 export default props => {
+  const colorScheme = useColorScheme()
+  const styles = colorTheme(colorScheme)
   return (
       <View style={styles.container}>
         <View >
