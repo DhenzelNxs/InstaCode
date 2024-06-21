@@ -50,15 +50,16 @@ export const addComment = payload => {
         axios
           .patch(`/posts/patchpost/${payload.postId}`, {comments})
           .then(res => {
-            dispatch(payload.requestFunc(true));
+            dispatch(payload.requestCommentsFunc());
+            dispatch(requestPost(true))
           });
       });
   };
 };
 
-export const requestPost = () => {
+export const requestPost = (requestControl=false) => {
   return async dispatch => {
-    dispatch(loadingPosts())
+    if (requestControl === false) dispatch(loadingPosts())
     await axios
       .get('/posts')
       .then(response => {
@@ -67,6 +68,6 @@ export const requestPost = () => {
       .catch(error => {
         dispatch(Alert.alert('Error', `${error}`));
       });
-      dispatch(postsLoaded())
+      if (requestControl === false) dispatch(postsLoaded())
   }
 };

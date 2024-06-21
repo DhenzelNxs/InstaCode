@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles/addcomment';
+import { requestPost } from '../store/actions/post';
 
 class AddComment extends Component {
   state = {
@@ -25,6 +26,7 @@ class AddComment extends Component {
         nickname: this.props.name,
         comment: this.state.comment,
       },
+      requestCommentsFunc: this.props.requestCommentsFunc
     });
 
     this.setState({comment: '', editMode: false});
@@ -73,6 +75,7 @@ const mapStateToProps = ({user}) => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddComment: payload => dispatch(addComment(payload)),
+    onRequestComments: requestControl => dispatch(requestPost(requestControl))
   };
 };
 

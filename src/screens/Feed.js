@@ -33,7 +33,7 @@ class Feed extends Component {
   }
 
   async componentDidMount() {
-    this.props.onRequestPosts();
+    this.props.onRequestPosts(false);
     this.colorSchemeListener = Appearance.addChangeListener(({ colorScheme }) => {
       this.setState({ colorScheme: colorScheme, styles: colorTheme(colorScheme) });
     });

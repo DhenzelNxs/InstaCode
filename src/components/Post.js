@@ -7,7 +7,9 @@ import {
   TouchableOpacity, 
   Modal, 
   ScrollView,
-  Appearance
+  Appearance,
+  FlatList,
+  Alert
 } from 'react-native';
 import Author from './Author';
 import Comments from './Comments';
@@ -28,14 +30,17 @@ class Post extends Component {
       modalVisible: false,
       colorScheme: colorScheme,
       styles: colorTheme(colorScheme),
+      comments: []
     }
   }
 
   componentDidMount = () => {
     this.requestProfileImage();
+    this.requestComments();
     this.colorSchemeListener = Appearance.addChangeListener(({ colorScheme }) => {
       this.setState({ colorScheme: colorScheme, styles: colorTheme(colorScheme) });
     });
+    console.log(this.props.comments)
   }
 
   componentWillUnmount() {
@@ -53,6 +58,16 @@ class Post extends Component {
         const user = data.filter(user => this.props.nickname === user.name)
         this.setState({profile_image: user[0].profile_image})
       }) 
+  }
+
+  requestComments = () => {
+    axios
+      .get(`/comments/${this.props.id}`)
+      .catch(err => Alert.alert('Erro', 'Ocorreu algum problema ao tentar monstrar os comentarios'))
+      .then(res => {
+        const data = res.data.comments
+        this.setState({comments: data})
+      })
   }
 
   onLike = async (likeMode) => {
@@ -131,17 +146,26 @@ class Post extends Component {
                 >
                   <Icon name="close" size={30} color="#FFF"/>
                 </TouchableOpacity>
-                <ScrollView style={{height: "60%"}}>
-                  <Comments 
-                    comments={this.props.comments}
-                    profile_image={this.state.profile_image} 
+                <View style={{maxHeight: "70%"}}>
+                  <FlatList 
+                  data={this.state.comments}
+                  keyExtractor={this.props.postId}
+                  renderItem={({item}) => (
+                    <Comments 
+                      comment={item.comment}
+                      nickname={item.nickname}
+                    />
+                    )}
                   />
-                </ScrollView>
-                <AddComment
-                  postId={this.props.id}
-                  keyId={this.props.keys}
-                  requestFunc={this.props.requestFunc}
-                />
+                </View>
+                <View style={{position: 'absolute', bottom: 40}}>
+                  <AddComment
+                    postId={this.props.id}
+                    keyId={this.props.keys}
+                    requestFunc={this.props.requestFunc}
+                    requestCommentsFunc={this.requestComments}
+                  />
+                </View>
               </View>
             </View>
           </Modal>
@@ -172,7 +196,7 @@ class Post extends Component {
           }}
           onPress={() => this.setState({ modalVisible: !modalVisible })}
           >
-            Ver {this.props.comments.length} {this.props.comments.length > 1 ? "comentários" : "comentário"}
+            Ver {this.state.comments.length} {this.state.comments.length > 1 ? "comentários" : "comentário"}
         </Text>
       }
         
