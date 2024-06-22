@@ -26,7 +26,7 @@ export const colorTheme = colorScheme => StyleSheet.create({
         borderColor: "#ddd"
     },
     title: {
-      color: '#19F28B',
+      color: colors.loadingColor,
       fontFamily: 'monospace',
       height: 30,
       fontSize: 28,

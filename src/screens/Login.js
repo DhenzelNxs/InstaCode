@@ -35,7 +35,7 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.isLoading ? <ActivityIndicator size={45} /> : null}
+        {this.props.isLoading ? <ActivityIndicator size={45} color={colors.loadingColor}/> : null}
         <Image
             source={require('../../assets/imgs/instacode-logo.png')}
             style={styles.image}
