@@ -38,9 +38,10 @@ export const colorTheme = colorScheme => StyleSheet.create({
     input: {
       marginTop: 20,
       width: '90%',
-      color: '#FFF',
-      backgroundColor:'#1E1C1C',
+      color: '#FFF' ,
+      backgroundColor:colorScheme === 'dark' ? '#000' : '#A1A1A1',
       padding: 20,
-      maxWidth: '80%'
+      maxWidth: '80%',
+      borderRadius: 20
     },
   });

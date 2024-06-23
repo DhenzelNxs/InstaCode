@@ -13,8 +13,8 @@ export const colorTheme = (colorScheme) => StyleSheet.create({
       margin: '0 auto',
       marginTop: '50%',
       fontSize: 20,
-      opacity: 0.3,
-      color: '#888',
+      color: '#FFF',
+      fontWeight: '200'
     },
     Loginbuttom: {
       padding: 10,

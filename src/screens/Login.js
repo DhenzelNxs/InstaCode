@@ -44,7 +44,7 @@ class Login extends Component {
           <TextInput
           placeholder="Email"
           placeholderTextColor={colors.placeholderTextColor}
-          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : colors.placeholderTextColor}]}
+          style={[styles.input, {borderColor: this.state.focusEmail ? colors.loadingColor : '#FFF'}]}
           autoFocus={false}
           keyboardType="email-address"
           value={this.state.email}
@@ -55,7 +55,7 @@ class Login extends Component {
         <TextInput
           placeholder="Senha"
           placeholderTextColor={colors.placeholderTextColor}
-          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : colors.placeholderTextColor}]}
+          style={[styles.input, {borderColor: this.state.focusPassword ? colors.loadingColor : '#FFF'}]}
           autoFocus={false}
           secureTextEntry={true}
           value={this.state.password}

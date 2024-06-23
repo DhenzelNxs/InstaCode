@@ -15,6 +15,7 @@ import { colors } from '../GlobalStyle/Style';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colorTheme } from './styles/addphoto';
 import { getUserPost } from '../store/actions/user';
+import { MediaPlayer } from '../components/Video';
 
 const noUser = 'Você precisa estar logado para adicionar imagens';
 
@@ -23,7 +24,8 @@ class AddPhoto extends Component {
     super(props);
     const colorScheme = Appearance.getColorScheme();
     this.state = {
-    image: '',
+    media: '',
+    mediaType: '',
     base64: null,
     description: '',
     loading: false,
@@ -56,9 +58,15 @@ class AddPhoto extends Component {
     const callback = res => {
       if (!res.didCancel) {
         this.setState({
-          image: res.assets[0].uri,
+          media: res.assets[0].uri,
           base64: 'data:image/jpeg;base64,' + res.assets[0].base64,
         });
+      }
+      const mediaType = res.assets[0].type
+      if(mediaType.startsWith('image')) {
+        this.setState({mediaType: 'image'})
+      } else if (mediaType.startsWith('video')) {
+        this.setState({mediaType: 'video'})
       }
     };
 
@@ -105,14 +113,15 @@ class AddPhoto extends Component {
     this.props.onAddPost({
       nickname: this.props.name,
       email: this.props.email,
-      image: this.state.image,
+      image: this.state.media,
+      media_type: this.state.mediaType,
       likes: null,
       description: this.state.description,
       comments: [],
       liked_by: [],
     });
     setTimeout(() => {
-      this.setState({image: '', description: '', base64: null});
+      this.setState({media: '', description: '', base64: null});
       this.props.onRequestPost()
       this.props.onRequestuserPost(this.props.name)
     }, 2000)
@@ -125,16 +134,20 @@ class AddPhoto extends Component {
       <View style={styles.container}>
           <Text style={styles.title}>Compartilhe uma imagem</Text>
           <View style={styles.imageContainer}>
-            {this.state.image == '' ? (
+            {this.state.media == '' ? (
               <Text style={{color: '#FFF'}}>Escolha uma imagem para postar</Text>
             ) : (
-              <Image source={{uri: this.state.image}} style={styles.image} />
+              <MediaPlayer
+                type={this.state.mediaType}
+                source={this.state.media}
+                screen={'AddPhoto'}
+              />
             )}
           </View>
           <TouchableOpacity onPress={this.pickImage} style={styles.buttom}>
             <Icon name='camera' size={30} color={colors.loadingColor}/>
           </TouchableOpacity>
-          {this.state.image == '' ? null : 
+          {this.state.media == '' ? null : 
           <View style={{
             flex: 1,
             backgroundColor: colors.backgroundFeedColor,
@@ -145,7 +158,7 @@ class AddPhoto extends Component {
             style={styles.input}
             value={this.state.description}
             onChangeText={desc => this.setState({description: desc})}
-            placeholderTextColor="#FFF"
+            placeholderTextColor={'#FFF'}
             editable={!!this.props.name}
             multiline={true}
             />

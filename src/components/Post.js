@@ -18,6 +18,7 @@ import { colorTheme } from './styles/post';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios';
 import Share from 'react-native-share';
+import { MediaPlayer } from './Video';
 
 class Post extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class Post extends Component {
       .get(`/comments/${this.props.id}`)
       .catch(err => Alert.alert('Erro', 'Ocorreu algum problema ao tentar monstrar os comentarios'))
       .then(res => {
-        const data = res.data.comments
+        const data = res.data
         this.setState({comments: data})
       })
   }
@@ -97,10 +98,15 @@ class Post extends Component {
 
   render() {
     const {liked, modalVisible, styles} = this.state;
+    console.log(this.props.id)
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image source={{uri: this.props.image}} style={styles.image} />
+          <MediaPlayer 
+            type={this.props.media_type}
+            source={this.props.image}
+            screen={'Post'}
+          />
         </View>
         <View style={styles.post_icons}>
           <TouchableOpacity style={styles.like} onPress={() => this.onLike(liked ? 'deslike' : 'like')}>

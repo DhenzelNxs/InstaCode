@@ -11,7 +11,9 @@ export const colorTheme = colorScheme => StyleSheet.create({
     },
     imageContainer: {
       backgroundColor: colorScheme === "dark" ? '#1E1C1C' : '#7A6F6F',
-      marginTop: 60
+      marginTop: 60,
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height * (2 / 4),
     },
     description: {
       color: colorScheme === "dark" ? '#FFF': "#000",

@@ -39,8 +39,9 @@ export const styles = StyleSheet.create({
       color: '#FFF',
     },
     emptyText: {
-      color: '#FFF',
-      fontWeight: '200',
+      color: '#A1A1A1',
+      fontWeight: '300',
+      textAlign: 'center'
     },
     flatlist: {
       width: '100%',
