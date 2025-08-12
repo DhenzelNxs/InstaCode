@@ -3,10 +3,10 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 # App Pictures
 <div style="margin: 0 auto">
    <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768320.png?raw=true" width=200 height=400></img>
-   <img src="https://github.com/DhenzelNexxus/InstaCode/blob/master/assets/imgs/Screenshot_1717768374.png" width=200 height=400></img>
-   <img src="https://github.com/DhenzelNexxus/InstaCode/blob/master/assets/imgs/Screenshot_1717768380.png" width=200 height=400></img>
-   <img src="https://github.com/DhenzelNexxus/InstaCode/blob/master/assets/imgs/Screenshot_1717768383.png" width=200 height=400></img>
-   <img src="https://github.com/DhenzelNexxus/InstaCode/blob/master/assets/imgs/Screenshot_1717768391.png" width=200 height=400></img>
+   <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768374.png?raw=true" width=200 height=400></img>
+   <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768380.png?raw=true" width=200 height=400></img>
+   <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768383.png?raw=true" width=200 height=400></img>
+   <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768391.png?raw=true" width=200 height=400></img>
 </div>
 
 # Getting Started
