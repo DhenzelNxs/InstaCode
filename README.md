@@ -1,94 +1,102 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# InstaCode
 
-# App Pictures
-<div style="
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-  justify-items: center;
-  margin: 0 auto;
-">
-  <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768320.png?raw=true" width="200" height="400">
-  <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768374.png?raw=true" width="200" height="400">
-  <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768380.png?raw=true" width="200" height="400">
-  <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768383.png?raw=true" width="200" height="400">
-  <img src="https://github.com/DhenzelNxs/InstaCode/blob/master/assets/imgs/Screenshot_1717768391.png?raw=true" width="200" height="400">
-</div>
+Aplicativo mobile inspirado no Instagram, desenvolvido em **React Native**. Permite criar conta, fazer login, publicar fotos e vídeos, curtir, comentar, compartilhar posts e gerenciar o perfil do usuário.
 
-# Getting Started
+O app consome a API própria [InstaCode-api](https://github.com/DhenzelNxs/InstaCode-api) (Python/Flask), hospedada em produção em `https://instacode-api.onrender.com/api`.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Screenshots
 
-## Step 1: Start the Metro Server
+<p align="center">
+  <img src="assets/imgs/Screenshot_1717768320.png" width="180" />
+  <img src="assets/imgs/Screenshot_1717768374.png" width="180" />
+  <img src="assets/imgs/Screenshot_1717768380.png" width="180" />
+  <img src="assets/imgs/Screenshot_1717768383.png" width="180" />
+  <img src="assets/imgs/Screenshot_1717768391.png" width="180" />
+</p>
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Funcionalidades
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- Cadastro e login de usuário
+- Feed de posts com fotos e vídeos
+- Curtir e descurtir publicações
+- Comentar e visualizar comentários de um post
+- Compartilhar posts (via WhatsApp, usando `react-native-share`)
+- Publicar foto/vídeo tirado pela câmera ou escolhido da galeria
+- Perfil do usuário com foto, posts publicados e logout
+- Suporte a tema claro/escuro (segue o tema do sistema)
+
+## Tecnologias
+
+- [React Native](https://reactnative.dev) 0.74
+- [React Navigation](https://reactnavigation.org) (stack + bottom tabs)
+- [Redux](https://redux.js.org) + [Redux Thunk](https://github.com/reduxjs/redux-thunk) + React Redux
+- [Axios](https://axios-http.com) para chamadas à API
+- [react-native-image-picker](https://github.com/react-native-image-picker/react-native-image-picker) (câmera/galeria)
+- [react-native-video](https://github.com/react-native-video/react-native-video) (reprodução de vídeos nos posts)
+- [react-native-share](https://github.com/react-native-sharing/react-native-share)
+- TypeScript, ESLint e Prettier
+- Jest para testes
+
+## Pré-requisitos
+
+Siga o guia oficial de [configuração do ambiente React Native](https://reactnative.dev/docs/environment-setup) (React Native CLI) até a etapa "Creating a new application", garantindo o ambiente Android (Android Studio/SDK) e, no caso de iOS, o Xcode e o CocoaPods configurados.
+
+## Instalação
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+git clone https://github.com/DhenzelNxs/InstaCode.git
+cd InstaCode
+npm install
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Para iOS, instale também os Pods:
 
 ```bash
-# using npm
+cd ios && pod install && cd ..
+```
+
+## Executando o projeto
+
+Inicie o Metro Bundler:
+
+```bash
+npm start
+```
+
+Em outro terminal, rode o app no emulador/dispositivo:
+
+```bash
+# Android
 npm run android
 
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
+# iOS
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+> Por padrão o app aponta para a API em produção (`https://instacode-api.onrender.com/api`, definido em `index.js`). Para usar uma instância local da [InstaCode-api](https://github.com/DhenzelNxs/InstaCode-api), altere o valor de `axios.defaults.baseURL` nesse arquivo.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Scripts disponíveis
 
-## Step 3: Modifying your App
+| Script | Descrição |
+| --- | --- |
+| `npm start` | Inicia o Metro Bundler |
+| `npm run android` | Builda e executa o app no Android |
+| `npm run ios` | Builda e executa o app no iOS |
+| `npm run lint` | Executa o ESLint |
+| `npm test` | Executa os testes com Jest |
 
-Now that you have successfully run the app, let's modify it.
+## Estrutura do projeto
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+```
+src/
+├── App.js              # componente raiz
+├── Navigator.js         # rotas (stack + bottom tabs)
+├── GlobalStyle/         # cores e estilos globais
+├── components/          # componentes reutilizáveis (Post, Comments, Header, Video, etc.)
+├── screens/              # telas (Feed, AddPhoto, Profile, Login, Register, Splash)
+└── store/                # Redux: actions e reducers (user, post, message)
+```
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Licença
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
